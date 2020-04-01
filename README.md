@@ -6,6 +6,8 @@ https://www.figma.com/file/9s5V5ePkdSMK1TLdOaryzD/Web?node-id=0%3A1
 
 We are using all serverless tools of firebase development environment.
 
+![Beer4Share screenshot](screenshot.png)
+
 ## Build Setup
 
 ```bash

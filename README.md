@@ -1,6 +1,10 @@
-# TESTNUXTAPP
+# Beer4Share
 
-> My fine Nuxt.js project
+> This project is a university project. We are a small team of Computer Enginering Master Course of UAM (Universidad Autonoma de Madrid). And we are doveloping a system to share beers and brew receips using vue js and nuxt, you can see our initial  user interface propose here:
+
+https://www.figma.com/file/9s5V5ePkdSMK1TLdOaryzD/Web?node-id=0%3A1
+
+We are using all serverless tools of firebase development environment.
 
 ## Build Setup
 
@@ -20,3 +24,5 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+

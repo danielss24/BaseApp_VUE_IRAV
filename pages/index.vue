@@ -1,13 +1,27 @@
 <template>
-  <v-container class="grey lighten-5">
-    <div class="flex display-1">
-      Amor
-    </div>
-    <p class="text-justify mb-5">
-      Morbi mattis ullamcorper velit. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Fusce convallis metus id felis luctus adipiscing. Aenean massa. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus.
-      Nulla consequat massa quis enim. Praesent venenatis metus at tortor pulvinar varius. Donec venenatis vulputate lorem. Phasellus accumsan cursus velit. Pellentesque ut neque.
-    </p>
-    <blockquote class="blockquote">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum maiores modi quidem veniam, expedita quis laboriosam, ullam facere adipisci, iusto, voluptate sapiente corrupti asperiores rem nemo numquam fuga ab at.</blockquote>
+  <v-container>
+    <v-row>
+      <v-col cols="sm">
+        <p>banner</p>
+      </v-col>
+    </v-row>
+    <v-row>
+       <v-col cols="sm">
+        <p class="display-1">
+          How it works?
+        </p>
+        <p class="text-justify mb-5">
+          Morbi mattis ullamcorper velit. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Fusce convallis metus id felis luctus adipiscing. Aenean massa. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus.
+          Nulla consequat massa quis enim. Praesent venenatis metus at tortor pulvinar varius. Donec venenatis vulputate lorem. Phasellus accumsan cursus velit. Pellentesque ut neque.
+        </p>
+        <blockquote class="blockquote">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum maiores modi quidem veniam, expedita quis laboriosam, ullam facere adipisci, iusto, voluptate sapiente corrupti asperiores rem nemo numquam fuga ab at.</blockquote>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="sm">
+        <p>search: </p>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col v-for="n in 12" :key="n" cols="sm">
         <v-card class="mx-auto" max-width="250">

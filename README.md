@@ -1,6 +1,6 @@
 # Beer4Share
 
-> This project is a schollar project. We are a small team of Computer Enginering Master Course of UAM (Universidad Autonoma de Madrid). And we are doveloping a system to share beers and brew receips using vue js and nuxt, you can see our initial  user interface propose here:
+> This project is a schollar proposal. We are a small team of the Master in Computer Enginering of UAM (Universidad Autonoma de Madrid). And we are doveloping a system to share beers and brew receips using vue js and nuxt, you can see our initial  user interface propose here, this is simple prof of concept for the course of Advanced Intenet and Networks Master class:
 
 https://www.figma.com/file/9s5V5ePkdSMK1TLdOaryzD/Web?node-id=0%3A1
 

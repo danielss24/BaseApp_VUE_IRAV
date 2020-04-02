@@ -4,7 +4,7 @@
       <v-list dense>
         <v-list-item to="/team" link>
           <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
+            <v-icon>🚀</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>WHO</v-list-item-title>
@@ -58,6 +58,14 @@
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Profile</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item to="/recipe" link>
+          <v-list-item-action>
+            <v-icon>mdi-view-dashboard</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Recipe</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>

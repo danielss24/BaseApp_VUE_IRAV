@@ -1,7 +1,7 @@
 <template>
-    <v-container>
-        <p>team</p>
-    </v-container>
+  <v-container>
+    <p>team</p>
+  </v-container>
 </template>
 
 <script>

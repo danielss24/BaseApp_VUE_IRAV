@@ -1,7 +1,7 @@
 <template>
-    <v-container>
-        <p>recovery</p>
-    </v-container>
+  <v-container>
+    <p>recovery</p>
+  </v-container>
 </template>
 
 <script>

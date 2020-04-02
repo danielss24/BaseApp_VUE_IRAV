@@ -1,3 +1,4 @@
+/* eslint-disable vue/html-self-closing */
 <template>
   <v-container>
     <v-row>
@@ -6,20 +7,30 @@
       </v-col>
     </v-row>
     <v-row>
-       <v-col cols="sm">
+      <v-col cols="sm">
         <p class="display-1">
           How it works?
         </p>
         <p class="text-justify mb-5">
-          Morbi mattis ullamcorper velit. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Fusce convallis metus id felis luctus adipiscing. Aenean massa. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus.
-          Nulla consequat massa quis enim. Praesent venenatis metus at tortor pulvinar varius. Donec venenatis vulputate lorem. Phasellus accumsan cursus velit. Pellentesque ut neque.
+          Morbi mattis ullamcorper velit. Donec orci lectus, aliquam ut,
+          faucibus non, euismod id, nulla. Fusce convallis metus id felis luctus
+          adipiscing. Aenean massa. Vestibulum purus quam, scelerisque ut,
+          mollis sed, nonummy id, metus. Nulla consequat massa quis enim.
+          Praesent venenatis metus at tortor pulvinar varius. Donec venenatis
+          vulputate lorem. Phasellus accumsan cursus velit. Pellentesque ut
+          neque.
         </p>
-        <blockquote class="blockquote">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum maiores modi quidem veniam, expedita quis laboriosam, ullam facere adipisci, iusto, voluptate sapiente corrupti asperiores rem nemo numquam fuga ab at.</blockquote>
+        <blockquote class="blockquote">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum
+          maiores modi quidem veniam, expedita quis laboriosam, ullam facere
+          adipisci, iusto, voluptate sapiente corrupti asperiores rem nemo
+          numquam fuga ab at.
+        </blockquote>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="sm">
-        <p>search: </p>
+        <p>search:</p>
       </v-col>
     </v-row>
     <v-row>
@@ -29,11 +40,13 @@
             class="white--text align-end"
             height="200px"
             src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          ></v-img>
+          />
 
           <v-card-title>Beer</v-card-title>
 
-          <v-card-subtitle class="pb-0">Number 10</v-card-subtitle>
+          <v-card-subtitle class="pb-0">
+            Number 10
+          </v-card-subtitle>
 
           <v-card-text class="text--primary">
             <div>Whitehaven Beach</div>
@@ -42,9 +55,13 @@
           </v-card-text>
 
           <v-card-actions>
-            <v-btn color="orange" text>Share</v-btn>
+            <v-btn color="orange" text>
+              Share
+            </v-btn>
 
-            <v-btn color="orange" text>Explore</v-btn>
+            <v-btn color="orange" text>
+              Explore
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -62,5 +79,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

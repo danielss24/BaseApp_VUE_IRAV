@@ -1,7 +1,7 @@
 <template>
-    <v-container>
-        <p>singin</p>
-    </v-container>
+  <v-container>
+    <p>singin</p>
+  </v-container>
 </template>
 
 <script>

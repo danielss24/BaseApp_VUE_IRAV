@@ -1,7 +1,7 @@
 <template>
-    <v-container>
-        <p>change password</p>
-    </v-container>
+  <v-container>
+    <p>change password</p>
+  </v-container>
 </template>
 
 <script>

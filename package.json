@@ -7,20 +7,24 @@
   "scripts": {
     "build": "nuxt build",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
     "dev": "nuxt",
     "generate": "nuxt generate",
     "start": "nuxt start"
   },
   "dependencies": {
     "nuxt": "^2.0.0",
+    "tsutils": "^3.17.1",
+    "typescript": "^3.8.3",
     "vuetify": "^2.2.11"
   },
   "devDependencies": {
+    "@mdi/font": "^5.0.45",
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/vuetify": "^1.11.0",
     "babel-eslint": "^10.0.1",
-    "eslint": "^6.1.0",
+    "eslint": "^6.8.0",
     "eslint-plugin-nuxt": ">=0.4.2",
     "sass": "^1.19.0",
     "sass-loader": "^8.0.0",

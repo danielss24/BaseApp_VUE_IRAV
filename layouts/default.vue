@@ -4,7 +4,7 @@
       <v-list dense>
         <v-list-item to="/team" link>
           <v-list-item-action>
-            <v-icon>🚀</v-icon>
+            <v-icon>mdi-account-group</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>WHO</v-list-item-title>
@@ -12,7 +12,7 @@
         </v-list-item>
         <v-list-item to="/singin" link>
           <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
+            <v-icon>mdi-account-multiple-plus-outline</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Singin</v-list-item-title>
@@ -20,7 +20,7 @@
         </v-list-item>
         <v-list-item to="/login" link>
           <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
+            <v-icon>mdi-login-variant</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Login</v-list-item-title>
@@ -54,7 +54,7 @@
         </v-list-group>
         <v-list-item to="/profile" link>
           <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
+            <v-icon>mdi-face-profile-woman</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Profile</v-list-item-title>
@@ -62,7 +62,7 @@
         </v-list-item>
         <v-list-item to="/recipe" link>
           <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
+            <v-icon>mdi-text-box-outline</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Recipe</v-list-item-title>

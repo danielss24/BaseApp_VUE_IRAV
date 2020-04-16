@@ -1,18 +1,26 @@
 {
-  "name": "TESTNUXTAPP",
+  "name": "beer4share",
   "version": "1.0.0",
   "private": true,
-  "description": "My fine Nuxt.js project",
-  "author": "danielss24",
+  "description": "Beer for share",
+  "author": "Daniel Sirena <b@rubble.com> (http://barnyrubble.tumblr.com/)",
+  "contributors": [
+    "Maurilio Atila <b@rubble.com> (http://barnyrubble.tumblr.com/)",
+    "Jim Dios LUna <b@rubble.com> (http://barnyrubble.tumblr.com/)",
+    "Juan Andrés Escalante <b@rubble.com> (http://barnyrubble.tumblr.com/)"
+  ],
   "scripts": {
     "build": "nuxt build",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore static .",
     "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
     "dev": "nuxt",
     "generate": "nuxt generate",
     "start": "nuxt start"
   },
   "dependencies": {
+    "@nuxtjs/firebase": "^5.0.7",
+    "dotenv": "^8.2.0",
+    "firebase": "^7.14.0",
     "nuxt": "^2.0.0",
     "tsutils": "^3.17.1",
     "typescript": "^3.8.3",
@@ -20,6 +28,7 @@
   },
   "devDependencies": {
     "@mdi/font": "^5.0.45",
+    "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/vuetify": "^1.11.0",

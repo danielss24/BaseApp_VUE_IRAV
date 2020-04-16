@@ -1,3 +1,4 @@
+require('dotenv').config()
 
 export default {
   mode: 'universal',
@@ -35,14 +36,59 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
+    '@nuxtjs/dotenv',
     '@nuxtjs/vuetify',
-    ['@nuxtjs/vuetify', { /* module options */ }]
+    ['@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: process.env.API_KEY,
+          authDomain: process.env.AUTH_DOMAIN,
+          databaseURL: process.env.DB_URL,
+          projectId: process.env.PROJECT_ID,
+          storageBucket: process.env.STORAGE_BUCKET,
+          messagingSenderId: process.env.MESSAGING_SENDER_ID,
+          appId: process.env.APPID
+        // measurementId: process.env.some'
+        },
+        onFirebaseHosting: false,
+        services: {
+          auth: {
+            persistence: 'local',
+            // initialize: {
+            //   onAuthStateChangedMutation: "SET_AUTH_USER",
+            //   onAuthStateChangedAction: null
+            // },
+            ssr: false
+          },
+          firestore: {
+            enablePersistence: true
+          },
+          functions: {
+            // emulatorPort: 12345
+          },
+          storage: true,
+          realtimeDb: true,
+          performance: true,
+          analytics: false//,
+          // remoteConfig: {
+          //   settings: {
+          //     fetchTimeoutMillis: 60000,
+          //     minimumFetchIntervalMillis: 43200000
+          //   },
+          //   defaultConfig: {
+          //     welcome_message: 'Welcome'
+          //   }
+          // },
+          // messaging: {
+          //   createServiceWorker: true
+          // }
+        }
+      }]
   ],
   /*
   ** Nuxt.js modules
   */
-  modules: [
-  ],
+  modules: [],
   /*
   ** Build configuration
   */

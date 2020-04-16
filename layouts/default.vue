@@ -7,18 +7,26 @@
             <v-icon>mdi-account-group</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>WHO</v-list-item-title>
+            <v-list-item-title>Equipo</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item to="/singin" link>
+        <v-list-item
+          v-if="!isLoggedIn"
+          to="/create"
+          link
+        >
           <v-list-item-action>
             <v-icon>mdi-account-multiple-plus-outline</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Singin</v-list-item-title>
+            <v-list-item-title>Nueva cuenta</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item to="/login" link>
+        <v-list-item
+          v-if="!isLoggedIn"
+          to="login"
+          link
+        >
           <v-list-item-action>
             <v-icon>mdi-login-variant</v-icon>
           </v-list-item-action>
@@ -26,7 +34,19 @@
             <v-list-item-title>Login</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-group>
+        <v-list-item
+          v-if="isLoggedIn"
+          link
+          @click="logout"
+        >
+          <v-list-item-action>
+            <v-icon>mdi-login-variant</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-group v-if="false">
           <template v-slot:activator>
             <v-list-item-action>
               <v-icon>mdi-view-dashboard</v-icon>
@@ -52,7 +72,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
-        <v-list-item to="/profile" link>
+        <v-list-item v-if="isLoggedIn" to="/profile" link>
           <v-list-item-action>
             <v-icon>mdi-face-profile-woman</v-icon>
           </v-list-item-action>
@@ -60,7 +80,7 @@
             <v-list-item-title>Profile</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item to="/recipe" link>
+        <v-list-item v-if="false" to="/recipe" link>
           <v-list-item-action>
             <v-icon>mdi-text-box-outline</v-icon>
           </v-list-item-action>
@@ -73,9 +93,9 @@
 
     <v-app-bar app clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <router-link to="/" exact>
+      <router-link to="/" exact class="irav-icon">
         <v-toolbar-title>
-          <img height="40px" src="https://brew.sh/assets/img/homebrew-256x256.png">beer4share
+          <img height="40px" src="/felicidades.svg">beer4share
         </v-toolbar-title>
       </router-link>
     </v-app-bar>
@@ -87,13 +107,24 @@
     </v-content>
 
     <v-footer app>
-      <span>&copy; Engienir@ UAM 2020</span>
+      <span>&copy; Ingenier@s CS UAM 2020</span>
+      <a href="https://github.com/danielss24/BaseApp_VUE_IRAV" class="ml-5 mr-3">
+        <img src="/github.svg" width="20">
+        Vea el fuente en Github
+      </a>
     </v-footer>
   </v-app>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 export default {
+  computed: {
+    ...mapGetters({
+      isLoggedIn: 'isLoggedIn'
+    })
+  },
   props: {
     source: String
   },
@@ -101,13 +132,28 @@ export default {
   data: () => ({
     drawer: null
   }),
-
   created () {
     this.$vuetify.theme.dark = true
+  },
+  methods: {
+    ...mapMutations({
+      reset: 'RESET_STORE'
+    }),
+    logout () {
+      console.log('logout')
+      this.reset()
+      this.$router.push('/')
+    }
   }
 }
-
 </script>
 
 <style>
+.irav-icon:link {
+  text-decoration: none;
+}
+
+.irav-icon:visited {
+  text-decoration: none;
+}
 </style>

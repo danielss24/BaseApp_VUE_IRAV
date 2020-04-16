@@ -1,7 +1,7 @@
 /* eslint-disable vue/html-self-closing */
 <template>
   <v-container>
-    <v-row>
+    <v-row v-if="false">
       <v-col cols="sm">
         <p>banner</p>
       </v-col>
@@ -9,28 +9,48 @@
     <v-row>
       <v-col cols="sm">
         <p class="display-1">
-          How it works?
+          Como funciona?
         </p>
-        <p class="text-justify mb-5">
-          Morbi mattis ullamcorper velit. Donec orci lectus, aliquam ut,
-          faucibus non, euismod id, nulla. Fusce convallis metus id felis luctus
-          adipiscing. Aenean massa. Vestibulum purus quam, scelerisque ut,
-          mollis sed, nonummy id, metus. Nulla consequat massa quis enim.
-          Praesent venenatis metus at tortor pulvinar varius. Donec venenatis
-          vulputate lorem. Phasellus accumsan cursus velit. Pellentesque ut
-          neque.
+        <p
+          class="text-justify mb-5"
+        >
+          El sistema es muy simple, si produce cerveza, puede agregar la receta de su cerveza, otras personas que vienen aquí pueden contactarlo para varias cosas, una de ellas es intercambiar cerveza, enviar algunas botellas de la cerveza que ella hace y usted envía otros, por supuesto, puede estar dando cerveza, pero no hay cerveza gratis ...
         </p>
-        <blockquote class="blockquote">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum
-          maiores modi quidem veniam, expedita quis laboriosam, ullam facere
-          adipisci, iusto, voluptate sapiente corrupti asperiores rem nemo
-          numquam fuga ab at.
-        </blockquote>
+        <div v-if="false">
+          <!-- TODO: improve the blockquote design -->
+          <blockquote class="blockquote">
+            3 deseos: salud, dinero y amor...
+          </blockquote>
+          <blockquote
+            class="blockquote"
+          >
+            AMOR por la CERVEZA, DINERO para comprarla y SALUD para beberla -- Homer Simpson
+          </blockquote>
+        </div>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="sm">
-        <p>search:</p>
+        <v-toolbar dark color="teal">
+          <v-toolbar-title>Barra libre</v-toolbar-title>
+          <!-- TODO: we can alternate the words above: Cervecera -->
+          <v-autocomplete
+            v-model="select"
+            :loading="loading"
+            :items="items"
+            :search-input.sync="search"
+            cache-items
+            class="mx-4"
+            flat
+            hide-no-data
+            hide-details
+            label="Escribe algo sobre la cerveza que estas buscando?"
+            solo-inverted
+          />
+          <v-btn icon>
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </v-toolbar>
       </v-col>
     </v-row>
     <v-row>
@@ -39,16 +59,16 @@
           <v-img
             class="white--text align-end"
             height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+            :src="'https://picsum.photos/200/300/?random='+n"
           />
 
-          <v-card-title>Beer</v-card-title>
+          <v-card-title>Cerveza #{{ n }}</v-card-title>
 
           <v-card-subtitle class="pb-0">
-            Number 10
+            Un sabor de calidad
           </v-card-subtitle>
 
-          <v-card-text class="text--primary">
+          <v-card-text v-if="false" class="text--primary">
             <div>Whitehaven Beach</div>
 
             <div>Whitsunday Island, Whitsunday Islands</div>
@@ -56,11 +76,11 @@
 
           <v-card-actions>
             <v-btn color="orange" text>
-              Share
+              Compatir
             </v-btn>
 
             <v-btn color="orange" text>
-              Explore
+              Datos
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -75,6 +95,14 @@
 export default {
   components: {
     // Logo
+  },
+  data () {
+    return {
+      loading: '',
+      items: [],
+      search: '',
+      select: ''
+    }
   }
 }
 </script>

@@ -66,7 +66,7 @@
           </v-card-subtitle>
 
           <v-card-text class="text--primary">
-            <div>{{recipe.description}}</div>
+            <div>{{ recipe.description }}</div>
           </v-card-text>
 
           <v-card-actions>

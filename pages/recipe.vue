@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height container" fluid>
     <v-row class="ml-10">
-      <p class="display-3">
+      <p id="title" class="display-3" @mouseover="onMouse" @mouseleave="offMouse">
         CRUD recipe
       </p>
     </v-row>
@@ -29,7 +29,12 @@
           name="input-7-4"
           label="Recipe"
         />
-        <v-btn block color="success" dark @click="post()">
+        <v-btn
+          block
+          color="success"
+          dark
+          @click="post()"
+        >
           Save
         </v-btn>
       </v-col>
@@ -53,8 +58,24 @@ export default {
     // get from server
     // put on the v-model
   },
+  mounted () {
+    if (this.lamp1 === '1') {
+      document.getElementById('lamp1').style = 'border-color: yellow; border-style: dotted; color: yellow'
+    }
+    // document.getElementById('title').style = 'border-color: blue; border-style: dotted; color: blue'
+  },
   methods: {
     ...mapActions('recipe', ['post']),
+    onMouse () {
+      console.log('on')
+      // document.getElementById('title').style = 'border-color: red; border-style: dotted; color: red'
+      document.getElementById('title').innerHTML = 'CRUD recipe <img height="50px" src="/felicidades.svg">'
+    },
+    offMouse () {
+      console.log('off')
+      // document.getElementById('title').style = 'border-color: blue; border-style: dotted; color: blue'
+      document.getElementById('title').innerHTML = 'CRUD recipe'
+    },
     save () {
       console.log('save')
       this.post({ some: 'thing' })

@@ -5,5 +5,8 @@ export default {
     } catch {
       return false
     }
+  },
+  email: (state) => {
+    return state.authUser.email
   }
 }

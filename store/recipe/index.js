@@ -8,7 +8,6 @@ export const state = () => ({
 })
 export const mutations = {
   set (state, recipe) {
-    console.log(recipe)
     state.recipe = recipe
   }
 }
@@ -18,7 +17,19 @@ export const getters = {
   }
 }
 export const actions = {
-  post ({ state, commit, dispatch }, payload) {
-    console.log('post', payload)
+  async post ({ commit }, recipePayload) {
+    await this.$fireStore.collection('recipes').add(recipePayload)
+      .then((recipe) => {
+        if (recipe.exists) {
+          commit('recipes/add', recipe.data())
+        }
+      })
+  },
+  async update ({ commit }, recipePayload) {
+    const ref = this.$fireStore.collection('recipes').doc(recipePayload.id)
+    await ref.update(recipePayload)
+      .then((recipe) => {
+        commit('recipes/add', recipe.data())
+      })
   }
 }

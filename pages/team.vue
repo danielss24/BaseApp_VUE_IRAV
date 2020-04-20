@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-row>
-      <v-col v-for="n in 12" :key="n" cols="sm">
-        <v-card class="mx-auto" max-width="250">
+      <v-col v-for="n in 5" :key="n" cols="sm">
+        <v-card class="mx-auto" min-width="250">
           <v-img
             class="white--text align-end"
             height="200px"
@@ -12,7 +12,7 @@
           <v-card-title>Miembro #{{ n }}</v-card-title>
 
           <v-card-subtitle class="pb-0">
-            Un sabor de calidad
+            opa!
           </v-card-subtitle>
 
           <v-card-text class="text--primary">

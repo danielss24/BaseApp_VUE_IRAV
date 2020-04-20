@@ -53,34 +53,34 @@
         </v-toolbar>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col v-for="n in 12" :key="n" cols="sm">
-        <v-card class="mx-auto" max-width="250">
+    <v-row class="mt-5">
+      <v-col v-for="recipe in recipes" :key="recipe.title" cols="sm">
+        <v-card min-width="250">
           <v-img
             class="white--text align-end"
-            height="200px"
-            :src="'https://picsum.photos/200/300/?random='+n"
+            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
           />
 
-          <v-card-title>Cerveza #{{ n }}</v-card-title>
+          <v-card-title>{{ recipe.title }}</v-card-title>
 
           <v-card-subtitle class="pb-0">
-            Un sabor de calidad
+            IBU: {{ recipe.ibu }}
+          </v-card-subtitle>
+          <v-card-subtitle>
+            Alcool: {{ recipe.alcool }}
           </v-card-subtitle>
 
-          <v-card-text v-if="false" class="text--primary">
-            <div>Whitehaven Beach</div>
-
-            <div>Whitsunday Island, Whitsunday Islands</div>
+          <v-card-text class="text--primary">
+            <div>{{ recipe.description }}</div>
           </v-card-text>
 
           <v-card-actions>
             <v-btn color="orange" text>
-              Compatir
+              Share
             </v-btn>
 
             <v-btn color="orange" text>
-              Datos
+              Explore
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -90,19 +90,23 @@
 </template>
 
 <script>
-// import Logo from '~/components/Logo.vue'
+import { mapActions } from 'vuex'
 
 export default {
-  components: {
-    // Logo
-  },
   data () {
     return {
-      loading: '',
       items: [],
+      loading: '',
+      recipes: [],
       search: '',
       select: ''
     }
+  },
+  created () {
+    this.recipes = this.$store.getters['recipes/get']
+  },
+  methods: {
+    ...mapActions('recipes', ['getFromServer'])
   }
 }
 </script>

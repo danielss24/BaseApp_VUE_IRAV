@@ -80,7 +80,7 @@
             <v-list-item-title>Profile</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item v-if="false" to="/recipe" link>
+        <v-list-item v-if="isLoggedIn" to="/recipe" link>
           <v-list-item-action>
             <v-icon>mdi-text-box-outline</v-icon>
           </v-list-item-action>
@@ -107,11 +107,19 @@
     </v-content>
 
     <v-footer app>
-      <span>&copy; Ingenier@s CS UAM 2020</span>
-      <a href="https://github.com/danielss24/BaseApp_VUE_IRAV" class="ml-5 mr-3">
-        <img src="/github.svg" width="20">
-        Vea el fuente en Github
-      </a>
+      <v-row>
+        <v-col>
+          <p class="overline text-center">
+            <img src="/by.svg" width="100"> Ingenier@s Computer Science UAM 2020
+          </p>
+        </v-col>
+        <v-col>
+          <a href="https://github.com/danielss24/BaseApp_VUE_IRAV">
+            <img src="/github.svg" width="20">
+            <p class="overline">Vea el fuente en Github</p>
+          </a>
+        </v-col>
+      </v-row>
     </v-footer>
   </v-app>
 </template>

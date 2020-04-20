@@ -1,41 +1,42 @@
 <template>
   <v-container class="fill-height container" fluid>
-    <v-row class="ml-10">
-      <p id="title" class="display-3" @mouseover="onMouse" @mouseleave="offMouse">
-        CRUD recipe
+    <v-row class="ml-5">
+      <p id="title" class="display-1" @mouseover="onMouse" @mouseleave="offMouse">
+        + una Cerveza?
       </p>
     </v-row>
     <v-row justify="center" align="center">
       <v-col cols="12" sm="6" md="6">
         <v-text-field
-          v-model="title"
+          v-model="recipe.title"
           label="Title"
-          placeholder="Put some beautful name for your brew..."
+          placeholder="El nombre de tu cerveza"
           outlined
         />
         <v-text-field
-          v-model="ibu"
+          v-model="recipe.ibu"
           label="IBU"
+          placeholder="International Bitterness Units scale"
           outlined
         />
         <v-text-field
-          v-model="alcool"
-          label="% of Alcool"
+          v-model="recipe.alcool"
+          label="% de Alcool"
           outlined
         />
         <v-textarea
-          v-model="description"
+          v-model="recipe.description"
           outlined
           name="input-7-4"
-          label="Recipe"
+          label="Receta"
         />
         <v-btn
           block
           color="success"
           dark
-          @click="post()"
+          @click="save()"
         >
-          Save
+          {{ buttom }}
         </v-btn>
       </v-col>
     </v-row>
@@ -47,39 +48,37 @@ import { mapActions } from 'vuex'
 export default {
   data () {
     return {
-      title: '',
-      ibu: '',
-      alcool: '',
-      description: ''
+      recipe: {
+        title: '',
+        ibu: '',
+        alcool: '',
+        description: ''
+      },
+      buttom: 'Adicionar'
     }
   },
   created () {
-    // if (edit)
-    // get from server
-    // put on the v-model
-  },
-  mounted () {
-    if (this.lamp1 === '1') {
-      document.getElementById('lamp1').style = 'border-color: yellow; border-style: dotted; color: yellow'
+    if (this.$route.query) {
+      this.recipe = this.$route.query
+      this.buttom = 'Atualizar'
     }
-    // document.getElementById('title').style = 'border-color: blue; border-style: dotted; color: blue'
   },
   methods: {
-    ...mapActions('recipe', ['post']),
+    ...mapActions('recipe', ['post', 'update']),
     onMouse () {
-      console.log('on')
-      // document.getElementById('title').style = 'border-color: red; border-style: dotted; color: red'
-      document.getElementById('title').innerHTML = 'CRUD recipe <img height="50px" src="/felicidades.svg">'
+      document.getElementById('title').innerHTML = '+ una Cerveza? <img height="50px" src="/felicidades.svg">'
     },
     offMouse () {
-      console.log('off')
-      // document.getElementById('title').style = 'border-color: blue; border-style: dotted; color: blue'
-      document.getElementById('title').innerHTML = 'CRUD recipe'
+      document.getElementById('title').innerHTML = '+ una Cerveza?'
     },
     save () {
-      console.log('save')
-      this.post({ some: 'thing' })
-      // this.$router.push('/profile')
+      if (this.recipe.id) {
+        this.update(this.recipe)
+        this.$router.push('/profile')
+      } else {
+        this.post(this.recipe)
+        this.$router.push('/profile')
+      }
     }
   }
 }

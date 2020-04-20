@@ -1,6 +1,9 @@
 require('dotenv').config()
 
 export default {
+  router: {
+    middleware: 'auth'
+  },
   mode: 'universal',
   /*
   ** Headers of the page

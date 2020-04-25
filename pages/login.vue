@@ -48,8 +48,8 @@ import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   data: () => ({
-    email: 'cabelotaina@gmail.com',
-    password: 'maumau',
+    email: 'danielsersan@gmail.com',
+    password: 'danidani',
     showPassword: false
   }),
   computed: {

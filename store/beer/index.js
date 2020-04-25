@@ -1,11 +1,10 @@
 export const state = () => ({
   recipe: {
     title: '',
-    ingredient1: '',
-    ingredient2: '',
-    temperature: '',
-    time: '',
-    description: ''
+    ibu: '',
+    alcool: '',
+    description: '',
+    stock: ''
   }
 })
 export const mutations = {
@@ -20,18 +19,18 @@ export const getters = {
 }
 export const actions = {
   async post ({ commit }, recipePayload) {
-    await this.$fireStore.collection('recipes').add(recipePayload)
+    await this.$fireStore.collection('beers').add(recipePayload)
       .then((recipe) => {
         if (recipe.exists) {
-          commit('recipes/add', recipe.data())
+          commit('beers/add', recipe.data())
         }
       })
   },
   async update ({ commit }, recipePayload) {
-    const ref = this.$fireStore.collection('recipes').doc(recipePayload.id)
+    const ref = this.$fireStore.collection('beers').doc(recipePayload.id)
     await ref.update(recipePayload)
       .then((recipe) => {
-        commit('recipes/add', recipe.data())
+        commit('beers/add', recipe.data())
       })
   }
 }

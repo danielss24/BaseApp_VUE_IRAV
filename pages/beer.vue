@@ -9,39 +9,32 @@
       <v-col cols="12" sm="6" md="6">
         <file-upload ref="pic" />
         <v-text-field
-          v-model="recipe.title"
+          v-model="beer.title"
           label="Nombre"
           placeholder="El nombre de tu cerveza"
           outlined
         />
         <v-text-field
-          v-model="recipe.ingredient1"
-          label="Ingredient 1"
-          placeholder="Barley"
+          v-model="beer.ibu"
+          label="IBU"
+          placeholder="International Bitterness Units scale"
           outlined
         />
         <v-text-field
-          v-model="recipe.ingredient2"
-          label="Ingredient 2"
-          placeholder="Water"
-          outlined
-        />
-        <v-text-field
-          v-model="recipe.temperature"
-          label="Temperature"
-          placeholder="º C"
-          outlined
-        />
-        <v-text-field
-          v-model="recipe.time"
-          label="Time"
-          placeholder="days hours"
+          v-model="beer.alcool"
+          label="% de Alcool"
           outlined
         />
         <v-textarea
-          v-model="recipe.description"
-          label="Description"
-          placeholder="Tell about the process ... "
+          v-model="beer.description"
+          outlined
+          name="input-7-4"
+          label="Receta"
+        />
+        <v-text-field
+          v-model="beer.stock"
+          label="Stock"
+          placeholder="Uds. of beers"
           outlined
         />
         <v-btn
@@ -66,25 +59,24 @@ export default {
   },
   data () {
     return {
-      recipe: {
+      beer: {
         title: '',
-        ingredient1: '',
-        ingredient2: '',
-        temperature: '',
-        time: '',
-        description: ''
+        ibu: '',
+        alcool: '',
+        description: '',
+        stock: ''
       },
       buttom: 'Adicionar'
     }
   },
   created () {
     if (this.$route.query) {
-      this.recipe = this.$route.query
-      this.buttom = 'Atualizar'
+      this.beer = this.$route.query
+      this.buttom = 'Actualizar'
     }
   },
   methods: {
-    ...mapActions('recipe', ['post', 'update']),
+    ...mapActions('beer', ['post', 'update']),
     onMouse () {
       document.getElementById('title').innerHTML = '+ una Cerveza? <img height="50px" src="/felicidades.svg">'
     },
@@ -92,18 +84,18 @@ export default {
       document.getElementById('title').innerHTML = '+ una Cerveza?'
     },
     save () {
-      // if (this.recipe.title) {
-      //   this.$refs.pic.upload(this.recipe.title)
+      // if (this.beer.title) {
+      //   this.$refs.pic.upload(this.beer.title)
       //     .then(snapshot => this.callback(snapshot))
       // }
       this.callback('')
     },
     callback (snapshot) {
-      if (this.recipe.id) {
-        this.update(this.recipe)
+      if (this.beer.id) {
+        this.update(this.beer)
         this.$router.push('/profile')
       } else {
-        this.post(this.recipe)
+        this.post(this.beer)
         this.$router.push('/profile')
       }
     }

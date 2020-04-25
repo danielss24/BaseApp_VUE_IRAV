@@ -2,7 +2,7 @@
 
 > This project is a scholar proposal. We are a small team of the Master in Computer Enginering of UAM (Universidad Autonoma de Madrid), and we are developing a system to share beers and brew recipes using vue js and nuxt. This is simple proof of concept for the course of Advanced Internet and Networks Master class. You can see our initial user interface proposal [here](https://www.figma.com/file/9s5V5ePkdSMK1TLdOaryzD/Web?node-id=0%3A1).
 
-
+We this plugin to configure firebase in this project: https://nuxt-fire-demo.herokuapp.com/, here we can see some examples: https://github.com/lupas/nuxt-fire-demo/blob/master/components/examples/Storage.vue
 
 We are using all serverless tools of firebase development environment.
 

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col v-for="n in 5" :key="n" cols="sm">
+      <v-col v-for="n in team" :key="n" cols="sm">
         <v-card class="mx-auto" min-width="250">
           <v-img
             class="white--text align-end"
@@ -9,20 +9,13 @@
             :src="'https://picsum.photos/200/300/?random='+n"
           />
 
-          <v-card-title>Miembro #{{ n }}</v-card-title>
+          <v-card-title>{{ n.name }}</v-card-title>
 
           <v-card-subtitle class="pb-0">
-            opa!
+            {{ n.position }}
           </v-card-subtitle>
-
-          <v-card-text class="text--primary">
-            <div>email</div>
-
-            <div>twitter</div>
-          </v-card-text>
-
-          <v-card-actions v-if="false">
-            <v-btn color="orange" text>
+          <v-card-actions v-if="true">
+            <v-btn color="orange" :href="'mailto:'+n.email" text>
               Email
             </v-btn>
 
@@ -37,7 +30,16 @@
 <script>
 
 export default {
-  components: {
+  data () {
+    return {
+      team: [
+        { name: 'Maurilio Atila', position: 'Computer Scientist', email: 'teste@teste.com' },
+        { name: 'Jim Dios', position: 'Computer Scientist', email: 'teste@teste.com' },
+        { name: 'Daniel Sirena', position: 'Computer Scientist', email: 'teste@teste.com' },
+        { name: 'Juan Escalante', position: 'Computer Scientist', email: 'teste@teste.com' }
+
+      ]
+    }
   }
 }
 </script>

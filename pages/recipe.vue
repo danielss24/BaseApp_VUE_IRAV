@@ -7,9 +7,10 @@
     </v-row>
     <v-row justify="center" align="center">
       <v-col cols="12" sm="6" md="6">
+        <file-upload ref="pic" />
         <v-text-field
           v-model="recipe.title"
-          label="Title"
+          label="Nombre"
           placeholder="El nombre de tu cerveza"
           outlined
         />
@@ -44,8 +45,12 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
+import FileUpload from '../components/FileUpload'
 
 export default {
+  components: {
+    FileUpload
+  },
   data () {
     return {
       recipe: {
@@ -72,6 +77,12 @@ export default {
       document.getElementById('title').innerHTML = '+ una Cerveza?'
     },
     save () {
+      if (this.recipe.title) {
+        this.$refs.pic.upload(this.recipe.title)
+          .then(snapshot => this.callback(snapshot))
+      }
+    },
+    callback (snapshot) {
       if (this.recipe.id) {
         this.update(this.recipe)
         this.$router.push('/profile')

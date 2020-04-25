@@ -47,6 +47,11 @@
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
+  data: () => ({
+    email: 'cabelotaina@gmail.com',
+    password: 'maumau',
+    showPassword: false
+  }),
   computed: {
     ...mapState({
       authUser: state => state.authUser
@@ -55,11 +60,6 @@ export default {
       isLoggedIn: 'isLoggedIn'
     })
   },
-  data: () => ({
-    email: 'cabelotaina@gmail.com',
-    password: 'maumau',
-    showPassword: false
-  }),
   methods: {
     ...mapActions({
       onAuthStateChanged: 'onAuthStateChanged'
@@ -68,11 +68,10 @@ export default {
       set: 'SET_AUTH_USER'
     }),
     async login () {
-      const response = await this.$fireAuth.signInWithEmailAndPassword(
+      await this.$fireAuth.signInWithEmailAndPassword(
         this.email,
         this.password
       )
-      console.log(response)
       this.set({ uid: this.$fireAuth.currentUser.uid, email: this.$fireAuth.currentUser.email })
       this.$router.push('/profile')
     }

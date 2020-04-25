@@ -10,7 +10,7 @@
             >
           </v-avatar>
           <v-card-subtitle>
-            Bien venido
+            Beer venido
           </v-card-subtitle>
           <v-card-title class="pt-0">
             {{ email }}
@@ -28,11 +28,11 @@
       </v-card>
     </v-row>
     <v-row class="mt-5">
-      <v-col v-for="recipe in recipes" :key="recipe.title" cols="sm">
+      <v-col v-for="recipe in recipes" :key="recipe.id" cols="sm">
         <v-card min-width="250">
           <v-img
             class="white--text align-end"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+            :src="getFile(recipe.id)"
           />
 
           <v-card-title>{{ recipe.title }}</v-card-title>
@@ -48,17 +48,20 @@
             <div>{{ recipe.description }}</div>
           </v-card-text>
 
-          <v-card-actions>
-            <v-btn color="green" href="whatsapp://send?text=Essa cerveza es buenissima!" text>
-              Compartir
+          <v-card-actions class="justify-center">
+            <v-btn color="blue" :to="{path: '/recipe', query: recipe}">
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+            <v-btn color="green" href="whatsapp://send?text=Essa cerveza es buenissima!">
+              <v-icon>mdi-share</v-icon>
             </v-btn>
 
-            <v-btn color="purple" text>
-              Explorar
+            <v-btn color="orange">
+              <v-icon>mdi-eye</v-icon>
             </v-btn>
 
-            <v-btn color="blue" text :to="{path: '/recipe', query: recipe}">
-              Editar
+            <v-btn color="red" :to="{path: '/recipe', query: recipe}">
+              <v-icon>mdi-delete</v-icon>
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -69,6 +72,11 @@
 <script>
 import { mapActions } from 'vuex'
 export default {
+  data () {
+    return {
+      files: {}
+    }
+  },
   computed: {
     recipes () {
       return this.$store.getters['recipes/get']
@@ -77,21 +85,43 @@ export default {
       if (this.$fireAuth.currentUser) {
         return this.$fireAuth.currentUser.email
       } else {
-        return 'no logado'
+        return 'No logado' // ir a la pagina de login
       }
     }
   },
   created () {
     this.getFromServer()
-
-    if (this.$fireAuth.currentUser) {
-      this.email = this.$fireAuth.currentUser.email
+    for (const recipe of this.recipes) {
+      const storageRef = this.$fireStorage.ref()
+      const beerRef = storageRef.child(recipe.title.toLowerCase())
+      beerRef.getDownloadURL()
+        .then(url => this.getUrl(recipe.id, url))
+        .catch(error => this.fakeUrl(recipe.id, error))
     }
   },
   methods: {
     ...mapActions('recipes', ['getFromServer']),
     update (recipe) {
       this.$router.push({ path: '/recipe', params: recipe })
+    },
+    getFile (id) {
+      if (this.files) {
+        console.log(id)
+        return this.files[id]
+      }
+      return '/beer-bottle.svg'
+    },
+    getUrl (id, url) {
+      const xhr = new XMLHttpRequest()
+      xhr.responseType = 'blob'
+      xhr.onload = function (event) {}
+      xhr.open('GET', url)
+      xhr.send()
+      this.files[id] = url
+    },
+    fakeUrl (id, error) {
+      console.log(error)
+      this.files[id] = '/beer-bottle.svg'
     }
   }
 }

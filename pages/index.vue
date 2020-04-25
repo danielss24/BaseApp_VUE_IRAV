@@ -58,7 +58,7 @@
         <v-card min-width="250">
           <v-img
             class="white--text align-end"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+            src="/beer-bottle.svg"
           />
 
           <v-card-title>{{ recipe.title }}</v-card-title>

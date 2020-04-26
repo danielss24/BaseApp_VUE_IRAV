@@ -38,10 +38,16 @@
           <v-card-title>{{ recipe.title }}</v-card-title>
 
           <v-card-subtitle class="pb-0">
-            IBU: {{ recipe.ibu }}
+            ingredient1: {{ recipe.ingredient1 }}
           </v-card-subtitle>
           <v-card-subtitle>
-            Alcool: {{ recipe.alcool }}
+            ingredient2: {{ recipe.ingredient2 }}
+          </v-card-subtitle>
+          <v-card-subtitle>
+            ingredient2: {{ recipe.temperature }}
+          </v-card-subtitle>
+          <v-card-subtitle>
+            time: {{ recipe.time }}
           </v-card-subtitle>
 
           <v-card-text class="text--primary">
@@ -67,6 +73,49 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row class="mt-5">
+      <v-col v-for="beer in beers" :key="beer.id" cols="sm">
+        <v-card min-width="250">
+          <v-img
+            class="white--text align-end"
+            :src="getFile(beer.id)"
+          />
+
+          <v-card-title>{{ beer.title }}</v-card-title>
+
+          <v-card-subtitle class="pb-0">
+            IBU: {{ beer.ibu }}
+          </v-card-subtitle>
+          <v-card-subtitle>
+            Alcool: {{ beer.alcool }}
+          </v-card-subtitle>
+          <v-card-subtitle>
+            Stock: {{ beer.stock }}
+          </v-card-subtitle>
+
+          <v-card-text class="text--primary">
+            <div>{{ beer.description }}</div>
+          </v-card-text>
+
+          <v-card-actions class="justify-center">
+            <v-btn color="blue" :to="{path: '/beer', query: beer}">
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+            <v-btn color="green" href="">
+              <v-icon>mdi-share</v-icon>
+            </v-btn>
+
+            <v-btn color="orange">
+              <v-icon>mdi-eye</v-icon>
+            </v-btn>
+
+            <v-btn color="red" :to="{path: '/beer', query: beer}">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 <script>
@@ -81,6 +130,9 @@ export default {
     recipes () {
       return this.$store.getters['recipes/get']
     },
+    beers () {
+      return this.$store.getters['beers/get']
+    },
     email () {
       if (this.$fireAuth.currentUser) {
         return this.$fireAuth.currentUser.email
@@ -91,16 +143,18 @@ export default {
   },
   created () {
     this.getFromServer()
+    console.log(this.beers)
+    console.log(this.recipes)
     for (const recipe of this.recipes) {
       const storageRef = this.$fireStorage.ref()
-      const beerRef = storageRef.child(recipe.title.toLowerCase())
-      beerRef.getDownloadURL()
+      const recipeRef = storageRef.child(recipe.title.toLowerCase())
+      recipeRef.getDownloadURL()
         .then(url => this.getUrl(recipe.id, url))
         .catch(error => this.fakeUrl(recipe.id, error))
     }
   },
   methods: {
-    ...mapActions('recipes', ['getFromServer']),
+    ...mapActions('recipes', ['getFromServer'], 'beers', ['getBeersFromServer']),
     update (recipe) {
       this.$router.push({ path: '/recipe', params: recipe })
     },

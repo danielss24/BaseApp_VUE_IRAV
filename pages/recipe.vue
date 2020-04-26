@@ -8,12 +8,13 @@
     <v-row justify="center" align="center">
       <v-col cols="12" sm="6" md="6">
         <file-upload ref="pic" />
-        <v-text-field
-          v-model="recipe.title"
-          label="Nombre"
-          placeholder="El nombre de tu cerveza"
-          outlined
-        />
+        <!-- TODO() -->
+        <b-dropdown id="dropdown-1" text="Dropdown Button" class="m-md-2">
+          <b-dropdown-item>First Action</b-dropdown-item>
+          <b-dropdown-item>Second Action</b-dropdown-item>
+          <b-dropdown-item>Third Action</b-dropdown-item>
+        </b-dropdown>
+        <!-- TODO() -->
         <v-text-field
           v-model="recipe.ingredient1"
           label="Ingredient 1"
@@ -78,13 +79,15 @@ export default {
     }
   },
   created () {
+    console.log('GOLITA')
+    console.log(this.getBeersFromServer())
     if (this.$route.query) {
       this.recipe = this.$route.query
-      this.buttom = 'Atualizar'
+      this.buttom = 'Actualizar'
     }
   },
   methods: {
-    ...mapActions('recipe', ['post', 'update']),
+    ...mapActions('recipe', ['post', 'update', 'getBeersFromServer']),
     onMouse () {
       document.getElementById('title').innerHTML = '+ una Cerveza? <img height="50px" src="/felicidades.svg">'
     },

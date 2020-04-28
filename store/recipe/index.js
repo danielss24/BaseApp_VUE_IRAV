@@ -1,6 +1,7 @@
 export const state = () => ({
   recipe: {
     title: '',
+    beer_id: '',
     ingredient1: '',
     ingredient2: '',
     temperature: '',
@@ -28,7 +29,7 @@ export const actions = {
       })
   },
   async update ({ commit }, recipePayload) {
-    const ref = this.$fireStore.collection('recipes').doc(recipePayload.id)
+    const ref = this.$fireStore.collection('recipes').document(recipePayload.id)
     await ref.update(recipePayload)
       .then((recipe) => {
         commit('recipes/add', recipe.data())

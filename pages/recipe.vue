@@ -8,13 +8,20 @@
     <v-row justify="center" align="center">
       <v-col cols="12" sm="6" md="6">
         <file-upload ref="pic" />
-        <!-- TODO() -->
-        <b-dropdown id="dropdown-1" text="Dropdown Button" class="m-md-2">
-          <b-dropdown-item>First Action</b-dropdown-item>
-          <b-dropdown-item>Second Action</b-dropdown-item>
-          <b-dropdown-item>Third Action</b-dropdown-item>
-        </b-dropdown>
-        <!-- TODO() -->
+        <v-container id="dropdown-beers-select">
+          <v-row>
+            <v-col cols="12" sm="4">
+              <p>Beer</p>
+              <v-overflow-btn
+                v-model="recipe.title"
+                class="my-2"
+                :items="dropdown_beers"
+                label="Beers"
+                target="#dropdown-beers-select"
+              />
+            </v-col>
+          </v-row>
+        </v-container>
         <v-text-field
           v-model="recipe.ingredient1"
           label="Ingredient 1"
@@ -69,6 +76,7 @@ export default {
     return {
       recipe: {
         title: '',
+        beer_id: '',
         ingredient1: '',
         ingredient2: '',
         temperature: '',
@@ -78,18 +86,29 @@ export default {
       buttom: 'Adicionar'
     }
   },
+  computed: {
+    beers () {
+      return this.$store.getters['beers/get']
+    }
+  },
   created () {
-    console.log('GOLITA')
-    console.log(this.getBeersFromServer())
+    this.getBeersFromServer()
+    console.log('BEEEEEEEERS', this.beers)
+    this.dropdown_beers = []
+    for (const beer of this.beers) {
+      this.dropdown_beers.push(beer.title)
+    }
     if (this.$route.query) {
       this.recipe = this.$route.query
       this.buttom = 'Actualizar'
     }
   },
   methods: {
-    ...mapActions('recipe', ['post', 'update', 'getBeersFromServer']),
+    ...mapActions('recipe', ['post', 'update']),
+    ...mapActions('beers', ['getBeersFromServer']),
     onMouse () {
       document.getElementById('title').innerHTML = '+ una Cerveza? <img height="50px" src="/felicidades.svg">'
+      console.log('si o q', this.recipe.title)
     },
     offMouse () {
       document.getElementById('title').innerHTML = '+ una Cerveza?'

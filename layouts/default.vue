@@ -90,7 +90,7 @@
         </v-list-item>
         <v-list-item v-if="isLoggedIn" to="/beer" link>
           <v-list-item-action>
-            <v-icon>mdi-text-box-outline</v-icon>
+            <v-icon>mdi-glass-mug-variant</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Beer</v-list-item-title>

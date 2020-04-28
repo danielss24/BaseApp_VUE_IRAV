@@ -4,7 +4,8 @@ export const state = () => ({
     ibu: '',
     alcool: '',
     description: '',
-    stock: ''
+    stock: '',
+    recipe: { title: '', beer_id: '', ingredient1: '', ingredient2: '', temperature: '', time: '', description: '' }
   }
 })
 export const mutations = {
@@ -18,12 +19,20 @@ export const getters = {
   }
 }
 export const actions = {
-  async post ({ commit }, beerPayload) {
-    await this.$fireStore.collection('beers').add(beerPayload)
+  post ({ commit }, beerPayload, recipe) {
+    const DBFS = this.$fireStore
+    this.$fireStore.collection('beers').add(beerPayload)
       .then((beer) => {
-        if (beer.exists) {
-          commit('beers/add', beer.data())
+        if (beer.id) {
+          const beerAux = { title: beer.title, ibu: beer.ibu, alcool: beer.alcool, description: beer.description, stock: beer.stock, id: beer.id, recipe: {} }
+          beerAux.recipe = { title: '', ingredient1: '', ingredient2: '', temperature: '', time: '', description: '' }
+          console.log('BEER ID', beerAux.id)
+          console.log('BEER ID', beerAux.recipe)
+          // console.log('emptyRecip', this.$store.getter['recipe/get'])
+          DBFS.collection('beers').doc(beerAux.id).collection('recipe').add(beerAux.recipe)
         }
+      }).catch((Exception) => {
+        console.log(Exception)
       })
   },
   async update ({ commit }, beerPayload) {

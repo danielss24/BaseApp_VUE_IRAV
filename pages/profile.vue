@@ -27,9 +27,105 @@
         </v-col>
       </v-card>
     </v-row>
+    <v-card-title style="display:block">
+      BEERS
+    </v-card-title>
+    <v-row class="mt-5">
+      <v-col v-for="beer in beers" :key="beer.id" cols="sm">
+        <v-card min-width="250">
+          <v-img
+            class="white--text align-end"
+            :src="getFile(beer.id)"
+          />
+          <v-icon>mdi-glass-mug-variant</v-icon>
+          <v-card-title>{{ beer.title }}</v-card-title>
+          <v-card-subtitle class="pb-0">
+            IBU: {{ beer.ibu }}
+          </v-card-subtitle>
+          <v-card-subtitle>
+            Alcool: {{ beer.alcool }}
+          </v-card-subtitle>
+          <v-card-subtitle>
+            Stock: {{ beer.stock }}
+          </v-card-subtitle>
+          <v-card-text class="text--primary">
+            <div>{{ beer.description }}</div>
+          </v-card-text>
+          <v-card-actions class="justify-center">
+            <v-btn color="blue" :to="{path: '/beer', query: beer}">
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+            <v-btn color="green" href="">
+              <v-icon>mdi-share</v-icon>
+            </v-btn>
+            <v-btn
+              color="orange"
+              dark
+              v-on="on"
+            >
+              <v-icon
+                v-on="on"
+              >
+                mdi-eye
+              </v-icon>
+            </v-btn>
+            <v-dialog v-model="dialog" width="600px">
+              <template v-slot:activator="{ on }">
+                <v-btn color="primary" dark v-on="on">
+                  Open Dialog
+                </v-btn>
+              </template>
+              <v-card>
+                <v-card-title
+                  class="headline grey"
+                  primary-title
+                >
+                  Recipe
+                </v-card-title>
+                <v-row class="mt-5">
+                  <v-card min-width="250">
+                    <!-- <v-img
+                      class="white--text align-end"
+                      :src="getFile(beer.recipe.title)"
+                    /> -->
+                    <!-- <v-card-title>{{ beer.recipe.title }}</v-card-title> -->
+                    <v-card-subtitle class="pb-0">
+                      ingredient1: {{ beer.recipe.ingredient1 }}
+                    </v-card-subtitle>
+                    <v-card-subtitle>
+                      ingredient2: {{ beer.recipe.ingredient2 }}
+                    </v-card-subtitle>
+                    <v-card-subtitle>
+                      ingredient2: {{ beer.recipe.temperature }}
+                    </v-card-subtitle>
+                    <v-card-subtitle>
+                      time: {{ beer.recipe.time }}
+                    </v-card-subtitle>
+                    <v-card-text class="text--primary">
+                      <div>{{ beer.recipe.description }}</div>
+                    </v-card-text>
+                  </v-card>
+                </v-row>
+                <v-card-actions>
+                  <v-spacer />
+                  <v-btn color="green darken-1" text @click="dialog = false">
+                    Exit
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-btn color="red" :to="{path: '/beer', query: beer}">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
     <v-row class="mt-5">
       <v-col v-for="recipe in recipes" :key="recipe.id" cols="sm">
         <v-card min-width="250">
+          <v-icon>mdi-chef-hat</v-icon>
+          <v-card-title>RECIPE</v-card-title>
           <v-img
             class="white--text align-end"
             :src="getFile(recipe.id)"
@@ -73,49 +169,6 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row class="mt-5">
-      <v-col v-for="beer in beers" :key="beer.id" cols="sm">
-        <v-card min-width="250">
-          <v-img
-            class="white--text align-end"
-            :src="getFile(beer.id)"
-          />
-
-          <v-card-title>{{ beer.title }}</v-card-title>
-
-          <v-card-subtitle class="pb-0">
-            IBU: {{ beer.ibu }}
-          </v-card-subtitle>
-          <v-card-subtitle>
-            Alcool: {{ beer.alcool }}
-          </v-card-subtitle>
-          <v-card-subtitle>
-            Stock: {{ beer.stock }}
-          </v-card-subtitle>
-
-          <v-card-text class="text--primary">
-            <div>{{ beer.description }}</div>
-          </v-card-text>
-
-          <v-card-actions class="justify-center">
-            <v-btn color="blue" :to="{path: '/beer', query: beer}">
-              <v-icon>mdi-pencil</v-icon>
-            </v-btn>
-            <v-btn color="green" href="">
-              <v-icon>mdi-share</v-icon>
-            </v-btn>
-
-            <v-btn color="orange">
-              <v-icon>mdi-eye</v-icon>
-            </v-btn>
-
-            <v-btn color="red" :to="{path: '/beer', query: beer}">
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
   </v-container>
 </template>
 <script>
@@ -123,7 +176,8 @@ import { mapActions } from 'vuex'
 export default {
   data () {
     return {
-      files: {}
+      files: {},
+      dialog: false
     }
   },
   computed: {
@@ -131,7 +185,22 @@ export default {
       return this.$store.getters['recipes/get']
     },
     beers () {
-      return this.$store.getters['beers/get']
+      const beers = this.$store.getters['beers/get']
+      return beers
+      // const beers = this.$store.getters['beers/get']
+      // const beersModified = []
+      // let beer
+      // for (beer of beers) {
+      //   if (beer.recipe) {
+      //     beersModified.push(beer)
+      //   } else {
+      //     let beerAux = {}
+      //     beerAux = { title: beer.title, ibu: beer.ibu, alcool: beer.alcool, description: beer.description, stock: beer.stock, recipe: {} }
+      //     console.log('FUNIONA BEER AUX', beerAux)
+      //     beersModified.push(beerAux)
+      //   }
+      // }
+      // return beersModified
     },
     email () {
       if (this.$fireAuth.currentUser) {
@@ -143,24 +212,26 @@ export default {
   },
   created () {
     this.getFromServer()
-    console.log(this.beers)
-    console.log(this.recipes)
+    this.getBeersFromServer()
+    console.log('Beers', this.beers)
+    console.log('Recipes', this.recipes)
     for (const recipe of this.recipes) {
       const storageRef = this.$fireStorage.ref()
-      const recipeRef = storageRef.child(recipe.title.toLowerCase())
+      const recipeRef = storageRef.child(recipe.title)
       recipeRef.getDownloadURL()
         .then(url => this.getUrl(recipe.id, url))
         .catch(error => this.fakeUrl(recipe.id, error))
     }
   },
   methods: {
-    ...mapActions('recipes', ['getFromServer'], 'beers', ['getBeersFromServer']),
+    ...mapActions('recipes', ['getFromServer']),
+    ...mapActions('beers', ['getBeersFromServer']),
     update (recipe) {
       this.$router.push({ path: '/recipe', params: recipe })
     },
     getFile (id) {
       if (this.files) {
-        console.log(id)
+        // console.log(id)
         return this.files[id]
       }
       return '/beer-bottle.svg'
@@ -174,7 +245,7 @@ export default {
       this.files[id] = url
     },
     fakeUrl (id, error) {
-      console.log(error)
+      console.log('Error', error)
       this.files[id] = '/beer-bottle.svg'
     }
   }

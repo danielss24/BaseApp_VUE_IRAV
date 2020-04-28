@@ -64,7 +64,8 @@ export default {
         ibu: '',
         alcool: '',
         description: '',
-        stock: ''
+        stock: '',
+        recipe: null
       },
       buttom: 'Adicionar'
     }
@@ -77,6 +78,7 @@ export default {
   },
   methods: {
     ...mapActions('beer', ['post', 'update']),
+    ...mapActions('recipe', ['state']),
     onMouse () {
       document.getElementById('title').innerHTML = '+ una Cerveza? <img height="50px" src="/felicidades.svg">'
     },
@@ -92,11 +94,13 @@ export default {
     },
     callback (snapshot) {
       if (this.beer.id) {
-        this.update(this.beer)
-        this.$router.push('/profile')
+        console.log('update')
+        this.update(this.beer, this.$store.recipe)
+        // this.$router.push('/profile')
       } else {
-        this.post(this.beer)
-        this.$router.push('/profile')
+        console.log('post')
+        this.post(this.beer, this.$store.recipe)
+        // this.$router.push('/profile')
       }
     }
   }

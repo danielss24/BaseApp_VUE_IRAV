@@ -16,14 +16,27 @@ export const getters = {
 }
 export const actions = {
   async getBeersFromServer ({ commit }) {
-    await this.$fireStore.collection('beers').get()
-      .then((beers) => {
+    const BDFB = this.$fireStore
+    await this.$fireStore.collection('beers').get().then(
+      (beers) => {
         commit('reset')
         beers.forEach((beer) => {
           if (beer.exists) {
             const beerPayload = beer.data()
             beerPayload.id = beer.id
+            BDFB.collection('beers').doc(beer.id).collection('recipe').get().then(
+              (recipe) => {
+                recipe.forEach((aux) => {
+                  if (aux.exists) {
+                    beerPayload.recipe = aux.data()
+                  }
+                })
+              }
+            ).catch((Exception) => {
+              beerPayload.recipe = { title: '', ingredient1: '', ingredient2: '', temperature: '', time: '', description: '' }
+            })
             commit('add', beerPayload)
+            // console.log('beerPayload', beerPayload)
           }
         })
       })

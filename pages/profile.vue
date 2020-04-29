@@ -121,7 +121,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row class="mt-5">
+    <!-- <v-row class="mt-5">
       <v-col v-for="recipe in recipes" :key="recipe.id" cols="sm">
         <v-card min-width="250">
           <v-icon>mdi-chef-hat</v-icon>
@@ -168,7 +168,7 @@
           </v-card-actions>
         </v-card>
       </v-col>
-    </v-row>
+    </v-row> -->
   </v-container>
 </template>
 <script>

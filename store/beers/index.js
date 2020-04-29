@@ -29,13 +29,13 @@ export const actions = {
                 recipe.forEach((aux) => {
                   if (aux.exists) {
                     beerPayload.recipe = aux.data()
+                    commit('add', beerPayload)
                   }
                 })
               }
             ).catch((Exception) => {
               beerPayload.recipe = { title: '', ingredient1: '', ingredient2: '', temperature: '', time: '', description: '' }
             })
-            commit('add', beerPayload)
             // console.log('beerPayload', beerPayload)
           }
         })

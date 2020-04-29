@@ -16,8 +16,10 @@
                 v-model="recipe.title"
                 class="my-2"
                 :items="dropdown_beers"
+                :values="dropdown_beers_value"
                 label="Beers"
                 target="#dropdown-beers-select"
+                @click="loadBeerId"
               />
             </v-col>
           </v-row>
@@ -97,6 +99,7 @@ export default {
     this.dropdown_beers = []
     for (const beer of this.beers) {
       this.dropdown_beers.push(beer.title)
+      // this.dropdown_beers_value.push(beer.id)
     }
     if (this.$route.query) {
       this.recipe = this.$route.query
@@ -119,6 +122,9 @@ export default {
       //     .then(snapshot => this.callback(snapshot))
       // }
       this.callback('')
+    },
+    loadBeerId () {
+      console.log('wait')
     },
     callback (snapshot) {
       if (this.recipe.id) {

@@ -10,8 +10,14 @@
         </h1>
       </v-card-title>
       <v-card-text>
-        <v-form>
-          <v-text-field v-model="email" label="Email" prepend-icon="mdi-account-circle" />
+        <v-form v-model="valid">
+          <v-text-field
+            masked="true"
+            label="Email"
+            prepend-icon="mdi-account-circle"
+            :rules="emailRules"
+            placeholder="user@estudiante.uam.es or user@uam.es"
+          />
           <v-text-field
             v-model="password"
             :type="showPassword ? 'text' : 'password'"
@@ -32,8 +38,8 @@
         </v-btn>
         <v-spacer />
         <v-btn
-          color="
-          info"
+          color="info"
+          :disabled="!valid"
           @click="login"
         >
           Entrar
@@ -48,9 +54,17 @@ import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   data: () => ({
-    email: 'cabelotaina@gmail.com',
+    email: 'cabelotaina@uam.es',
     password: 'maumau',
-    showPassword: false
+    showPassword: false,
+    emailRules: [
+      v => !!v || 'El e-mail es obligatorio',
+      v =>
+        /^\w+([.-]?\w+)*@(uam\.es)+$/.test(v) ||
+        /^\w+([.-]?\w+)*@(estudiante\.uam\.es)+$/.test(v) ||
+        'E-mail tiene que ser valido'
+    ],
+    valid: null
   }),
   computed: {
     ...mapState({
@@ -67,13 +81,17 @@ export default {
     ...mapMutations({
       set: 'SET_AUTH_USER'
     }),
-    async login () {
-      await this.$fireAuth.signInWithEmailAndPassword(
-        this.email,
-        this.password
-      )
-      this.set({ uid: this.$fireAuth.currentUser.uid, email: this.$fireAuth.currentUser.email })
-      this.$router.push('/profile')
+    login () {
+      console.log(this.valid)
+      this.$fireAuth.signInWithEmailAndPassword(this.email, this.password)
+        .then((response) => {
+          console.log(response)
+          this.set({ uid: this.$fireAuth.currentUser.uid, email: this.$fireAuth.currentUser.email })
+          this.$router.push('/profile')
+        })
+        .catch((error) => {
+          alert('Tenemos algum problema con nuestro sistema', error)
+        })
     }
   }
 }

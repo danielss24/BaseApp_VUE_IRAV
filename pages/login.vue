@@ -48,8 +48,8 @@ import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   data: () => ({
-    email: 'cabelotaina@gmail.com',
-    password: 'maumau',
+    email: '',
+    password: '',
     showPassword: false
   }),
   computed: {
@@ -67,13 +67,15 @@ export default {
     ...mapMutations({
       set: 'SET_AUTH_USER'
     }),
-    async login () {
-      await this.$fireAuth.signInWithEmailAndPassword(
-        this.email,
-        this.password
-      )
-      this.set({ uid: this.$fireAuth.currentUser.uid, email: this.$fireAuth.currentUser.email })
-      this.$router.push('/profile')
+    login () {
+      this.$fireAuth.signInWithEmailAndPassword(this.email, this.password)
+        .then((response) => {
+          this.set({ uid: this.$fireAuth.currentUser.uid, email: this.$fireAuth.currentUser.email })
+          this.$router.push('/profile')
+        })
+        .catch((error) => {
+          alert(error.message)
+        })
     }
   }
 }

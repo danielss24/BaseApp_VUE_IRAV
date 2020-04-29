@@ -37,7 +37,7 @@ export default {
   }),
   methods: {
     update () {
-      console.log('update password')
+      // console.log('update password')
     }
   }
 }

@@ -128,18 +128,20 @@
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
+  props: {
+    source: {
+      type: String,
+      default: ''
+    }
+  },
+  data: () => ({
+    drawer: null
+  }),
   computed: {
     ...mapGetters({
       isLoggedIn: 'isLoggedIn'
     })
   },
-  props: {
-    source: String
-  },
-
-  data: () => ({
-    drawer: null
-  }),
   created () {
     this.$vuetify.theme.dark = true
   },
@@ -148,7 +150,6 @@ export default {
       reset: 'RESET_STORE'
     }),
     logout () {
-      console.log('logout')
       this.reset()
       this.$router.push('/')
     }

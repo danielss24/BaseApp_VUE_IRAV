@@ -106,7 +106,6 @@ export default {
     },
     getFile (id) {
       if (this.files) {
-        console.log(id)
         return this.files[id]
       }
       return '/beer-bottle.svg'
@@ -120,7 +119,6 @@ export default {
       this.files[id] = url
     },
     fakeUrl (id, error) {
-      console.log(error)
       this.files[id] = '/beer-bottle.svg'
     }
   }

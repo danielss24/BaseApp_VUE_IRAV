@@ -46,17 +46,16 @@
 <script>
 export default {
   data: () => ({
-    email: 'cabelotaina@gmail.com',
-    password: 'maumau',
+    email: '',
+    password: '',
     showPassword: false
   }),
   methods: {
     async create () {
-      const response = await this.$fireAuth.createUserWithEmailAndPassword(
+      await this.$fireAuth.createUserWithEmailAndPassword(
         this.email,
         this.password
       )
-      console.log(response)
     }
   }
 }

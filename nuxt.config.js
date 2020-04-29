@@ -56,7 +56,6 @@ export default {
         onFirebaseHosting: false,
         services: {
           auth: {
-            persistence: 'local',
             // initialize: {
             //   onAuthStateChangedMutation: "SET_AUTH_USER",
             //   onAuthStateChangedAction: null

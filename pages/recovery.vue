@@ -38,7 +38,7 @@ export default {
   }),
   methods: {
     recovery () {
-      console.log('Recovery', this.email)
+      // console.log('Recovery', this.email)
     }
   }
 }

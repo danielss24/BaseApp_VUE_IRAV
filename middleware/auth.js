@@ -1,8 +1,11 @@
 export default function ({ store, redirect, route }) {
-  console.log(route.path)
-  const loginPage = '/login'
-  if (!store.$fireAuth.currentUser) {
-    // store.commit('user/setAfterLogin')
-    redirect(loginPage)
+  if (route.path === '/team' || route.path === '/create' || route.path === '/login' || route.path === '/') {
+    // silence is golden
+  } else if (store.$fireAuth.currentUser) {
+    if (route.path === '/profile' || route.path === '/recipe' || route.path === '/beer') {
+      // silence is golden
+    } else {
+      redirect('/login')
+    }
   }
 }

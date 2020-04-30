@@ -136,18 +136,20 @@
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
+  props: {
+    source: {
+      type: String,
+      default: ''
+    }
+  },
+  data: () => ({
+    drawer: null
+  }),
   computed: {
     ...mapGetters({
       isLoggedIn: 'isLoggedIn'
     })
   },
-  props: {
-    source: String
-  },
-
-  data: () => ({
-    drawer: null
-  }),
   created () {
     this.$vuetify.theme.dark = true
   },
@@ -156,20 +158,18 @@ export default {
       reset: 'RESET_STORE'
     }),
     logout () {
-      console.log('logout')
-      this.reset()
-      this.$router.push('/')
+      this.$fireAuth.signOut()
+        .then((response) => {
+          this.reset()
+          this.$router.push('/')
+        })
     }
   }
 }
 </script>
 
 <style>
-.irav-icon:link {
-  text-decoration: none;
-}
-
-.irav-icon:visited {
-  text-decoration: none;
-}
+  .irav-icon:visited, .irav-icon:link {
+    text-decoration: none;
+  }
 </style>

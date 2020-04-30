@@ -48,17 +48,24 @@ import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   data: () => ({
-    email: 'danielsersan@gmail.com',
-    password: 'danidani',
+    email: '',
+    password: '',
     showPassword: false
   }),
   computed: {
     ...mapState({
-      authUser: state => state.authUser
+      authUser: state => state.user
     }),
     ...mapGetters({
       isLoggedIn: 'isLoggedIn'
     })
+  },
+  created () {
+    // eslint-disable-next-line dot-notation
+    const isLoggedIn = this.$store.getters['isLoggedIn']
+    if (isLoggedIn) {
+      this.$router.push('/profile')
+    }
   },
   methods: {
     ...mapActions({
@@ -67,13 +74,15 @@ export default {
     ...mapMutations({
       set: 'SET_AUTH_USER'
     }),
-    async login () {
-      await this.$fireAuth.signInWithEmailAndPassword(
-        this.email,
-        this.password
-      )
-      this.set({ uid: this.$fireAuth.currentUser.uid, email: this.$fireAuth.currentUser.email })
-      this.$router.push('/profile')
+    login () {
+      this.$fireAuth.signInWithEmailAndPassword(this.email, this.password)
+        .then((response) => {
+          this.set({ authUser: response.user, claims: response.addicionalUserInfo })
+          this.$router.push('/profile')
+        })
+        .catch((error) => {
+          alert(error.message)
+        })
     }
   }
 }

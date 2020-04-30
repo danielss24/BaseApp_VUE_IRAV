@@ -113,6 +113,13 @@ export default {
       this.buttom = 'Actualizar'
     }
   },
+  mounted () {
+    // eslint-disable-next-line dot-notation
+    const isLoggedIn = this.$store.getters['isLoggedIn']
+    if (!isLoggedIn) {
+      this.$router.push('/login')
+    }
+  },
   methods: {
     ...mapActions('recipe', ['post', 'update', 'updateBeerRecipe']),
     ...mapActions('beers', ['getBeersFromServer']),

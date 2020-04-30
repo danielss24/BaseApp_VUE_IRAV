@@ -194,6 +194,12 @@ export default {
     this.getBeersFromServer()
     console.log('Beers', this.beers)
   },
+  mounted () {
+    // eslint-disable-next-line dot-notation
+    if (!this.$store.state.user) {
+      this.$router.push('/login')
+    }
+  },
   methods: {
     ...mapActions('recipes', ['getFromServer']),
     ...mapActions('beers', ['getBeersFromServer']),
@@ -202,7 +208,6 @@ export default {
     },
     getFile (id) {
       if (this.files) {
-        // console.log(id)
         return this.files[id]
       }
       return '/beer-bottle.svg'
@@ -216,7 +221,6 @@ export default {
       this.files[id] = url
     },
     fakeUrl (id, error) {
-      console.log('Error', error)
       this.files[id] = '/beer-bottle.svg'
     }
     // openBeerDialog (beera) {

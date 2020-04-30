@@ -34,5 +34,18 @@ export const actions = {
       .then((recipe) => {
         commit('recipes/add', recipe.data())
       })
+  },
+  updateBeerRecipe ({ commit }, recipePayload) {
+    const FBDB = this.$fireStore
+    this.$fireStore.collection('beers').doc(recipePayload.beerid).collection('recipe').get().then(
+      (recipe) => {
+        recipe.forEach((aux) => {
+          if (aux.exists) {
+            FBDB.collection('beers').doc(recipePayload.beerid).collection('recipe').doc(aux.id).update(recipePayload)
+            commit('add', recipePayload)
+          }
+        })
+      }
+    )
   }
 }

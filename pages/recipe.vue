@@ -7,23 +7,28 @@
     </v-row>
     <v-row justify="center" align="center">
       <v-col cols="12" sm="6" md="6">
-        <file-upload ref="pic" />
-        <v-container id="dropdown-beers-select">
-          <v-row>
-            <v-col cols="12" sm="4">
-              <p>Beer</p>
-              <v-overflow-btn
-                v-model="recipe.title"
-                class="my-2"
-                :items="dropdown_beers"
-                :values="dropdown_beers_value"
-                label="Beers"
-                target="#dropdown-beers-select"
-                @click="loadBeerId"
-              />
-            </v-col>
-          </v-row>
-        </v-container>
+        <v-col cols="6">
+          <v-select
+            v-model="dropdown_beer"
+            :items="beer_items"
+            item-text="title"
+            item-value="beerid"
+            label="Select"
+            return-object
+            single-line
+          />
+        </v-col>
+
+        <!-- <v-col class="d-flex" cols="12" sm="6">
+          <v-select
+            v-model="recipe.title"
+            :items="beer_items"
+            :values="beer_values"
+            label="Beers"
+            solo
+          />
+        </v-col> -->
+
         <v-text-field
           v-model="recipe.ingredient1"
           label="Ingredient 1"
@@ -54,6 +59,8 @@
           placeholder="Tell about the process ... "
           outlined
         />
+        <file-upload ref="pic" />
+        <br>
         <v-btn
           block
           color="success"
@@ -85,7 +92,9 @@ export default {
         time: '',
         description: ''
       },
-      buttom: 'Adicionar'
+      buttom: 'Adicionar',
+      dropdown_beer: { name: 'Beers', id: '-1' },
+      beer_items: []
     }
   },
   computed: {
@@ -95,11 +104,9 @@ export default {
   },
   created () {
     this.getBeersFromServer()
-    console.log('BEEEEEEEERS', this.beers)
-    this.dropdown_beers = []
     for (const beer of this.beers) {
-      this.dropdown_beers.push(beer.title)
-      // this.dropdown_beers_value.push(beer.id)
+      this.beer_items.push({ title: beer.title, beerid: beer.id })
+      console.log('beer items', this.beer_items)
     }
     if (this.$route.query) {
       this.recipe = this.$route.query
@@ -107,11 +114,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions('recipe', ['post', 'update']),
+    ...mapActions('recipe', ['post', 'update', 'updateBeerRecipe']),
     ...mapActions('beers', ['getBeersFromServer']),
     onMouse () {
       document.getElementById('title').innerHTML = '+ una Cerveza? <img height="50px" src="/felicidades.svg">'
-      console.log('si o q', this.recipe.title)
+      console.log('Recipe is', this.recipe)
+      console.log('Recipe is', this.dropdown_beer.title)
+      console.log('Recipe is', this.dropdown_beer.beerid)
     },
     offMouse () {
       document.getElementById('title').innerHTML = '+ una Cerveza?'
@@ -121,19 +130,23 @@ export default {
       //   this.$refs.pic.upload(this.recipe.title)
       //     .then(snapshot => this.callback(snapshot))
       // }
+      console.log(this.Beer)
       this.callback('')
     },
     loadBeerId () {
       console.log('wait')
     },
     callback (snapshot) {
-      if (this.recipe.id) {
-        this.update(this.recipe)
-        this.$router.push('/profile')
-      } else {
-        this.post(this.recipe)
-        this.$router.push('/profile')
-      }
+      this.recipe.title = this.dropdown_beer.title
+      this.recipe.beerid = this.dropdown_beer.beerid
+      this.updateBeerRecipe(this.recipe)
+      // if (this.recipe.id) {
+      //   this.update(this.recipe)
+      //   this.$router.push('/profile')
+      // } else {
+      //   this.post(this.recipe)
+      //   this.$router.push('/profile')
+      // }
     }
   }
 }

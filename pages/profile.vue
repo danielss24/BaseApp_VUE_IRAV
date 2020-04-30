@@ -58,21 +58,18 @@
             <v-btn color="green" href="">
               <v-icon>mdi-share</v-icon>
             </v-btn>
-            <v-btn
-              color="orange"
-              dark
-              v-on="on"
-            >
-              <v-icon
-                v-on="on"
-              >
-                mdi-eye
-              </v-icon>
-            </v-btn>
             <v-dialog v-model="dialog" width="600px">
               <template v-slot:activator="{ on }">
-                <v-btn color="primary" dark v-on="on">
-                  Open Dialog
+                <v-btn
+                  color="orange"
+                  dark
+                  v-on="on"
+                >
+                  <v-icon
+                    v-on="on"
+                  >
+                    mdi-eye
+                  </v-icon>
                 </v-btn>
               </template>
               <v-card>
@@ -96,7 +93,7 @@
                       ingredient2: {{ beer.recipe.ingredient2 }}
                     </v-card-subtitle>
                     <v-card-subtitle>
-                      ingredient2: {{ beer.recipe.temperature }}
+                      temperature: {{ beer.recipe.temperature }}
                     </v-card-subtitle>
                     <v-card-subtitle>
                       time: {{ beer.recipe.time }}
@@ -181,26 +178,9 @@ export default {
     }
   },
   computed: {
-    recipes () {
-      return this.$store.getters['recipes/get']
-    },
     beers () {
       const beers = this.$store.getters['beers/get']
       return beers
-      // const beers = this.$store.getters['beers/get']
-      // const beersModified = []
-      // let beer
-      // for (beer of beers) {
-      //   if (beer.recipe) {
-      //     beersModified.push(beer)
-      //   } else {
-      //     let beerAux = {}
-      //     beerAux = { title: beer.title, ibu: beer.ibu, alcool: beer.alcool, description: beer.description, stock: beer.stock, recipe: {} }
-      //     console.log('FUNIONA BEER AUX', beerAux)
-      //     beersModified.push(beerAux)
-      //   }
-      // }
-      // return beersModified
     },
     email () {
       if (this.$fireAuth.currentUser) {
@@ -211,17 +191,17 @@ export default {
     }
   },
   created () {
-    this.getFromServer()
     this.getBeersFromServer()
     console.log('Beers', this.beers)
-    console.log('Recipes', this.recipes)
-    for (const recipe of this.recipes) {
-      const storageRef = this.$fireStorage.ref()
-      const recipeRef = storageRef.child(recipe.title)
-      recipeRef.getDownloadURL()
-        .then(url => this.getUrl(recipe.id, url))
-        .catch(error => this.fakeUrl(recipe.id, error))
-    }
+    //     this.getFromServer()
+    //     console.log('Recipes', this.recipes)
+    //     for (const recipe of this.recipes) {
+    //       const storageRef = this.$fireStorage.ref()
+    //       const recipeRef = storageRef.child(recipe.title)
+    //       recipeRef.getDownloadURL()
+    //         .then(url => this.getUrl(recipe.id, url))
+    //         .catch(error => this.fakeUrl(recipe.id, error))
+    //     }
   },
   methods: {
     ...mapActions('recipes', ['getFromServer']),
@@ -248,6 +228,11 @@ export default {
       console.log('Error', error)
       this.files[id] = '/beer-bottle.svg'
     }
+    // openBeerDialog (beera) {
+    //   console.log('das', beera.recipe)
+    //   this.beer.recipe = beera.recipe
+    //   console.log('Abre', beera)
+    // }
   }
 }
 </script>

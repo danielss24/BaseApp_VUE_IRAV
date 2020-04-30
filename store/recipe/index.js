@@ -35,9 +35,9 @@ export const actions = {
         commit('recipes/add', recipe.data())
       })
   },
-  updateBeerRecipe ({ commit }, recipePayload) {
+  async updateBeerRecipe ({ commit }, recipePayload) {
     const FBDB = this.$fireStore
-    this.$fireStore.collection('beers').doc(recipePayload.beerid).collection('recipe').get().then(
+    await this.$fireStore.collection('beers').doc(recipePayload.beerid).collection('recipe').get().then(
       (recipe) => {
         recipe.forEach((aux) => {
           if (aux.exists) {

@@ -7,65 +7,62 @@
     </v-row>
     <v-row justify="center" align="center">
       <v-col cols="12" sm="6" md="6">
-        <v-col cols="6">
-          <v-select
-            v-model="dropdown_beer"
-            :items="beer_items"
-            item-text="title"
-            item-value="beerid"
-            label="Select"
-            return-object
-            single-line
+        <v-form
+          ref="form"
+          v-model="valid"
+          lazy-validation
+        >
+          <v-col cols="6">
+            <v-select
+              v-model="dropdown_beer"
+              :items="beer_items"
+              :rules="beerSelectRules"
+              item-text="title"
+              item-value="beerid"
+              label="Select"
+              return-object
+              single-line
+              required
+            />
+          </v-col>
+          <v-text-field
+            v-model="recipe.ingredient1"
+            label="Ingredient 1"
+            placeholder="Barley"
+            outlined
           />
-        </v-col>
-
-        <!-- <v-col class="d-flex" cols="12" sm="6">
-          <v-select
-            v-model="recipe.title"
-            :items="beer_items"
-            :values="beer_values"
-            label="Beers"
-            solo
+          <v-text-field
+            v-model="recipe.ingredient2"
+            label="Ingredient 2"
+            placeholder="Water"
+            outlined
           />
-        </v-col> -->
-
-        <v-text-field
-          v-model="recipe.ingredient1"
-          label="Ingredient 1"
-          placeholder="Barley"
-          outlined
-        />
-        <v-text-field
-          v-model="recipe.ingredient2"
-          label="Ingredient 2"
-          placeholder="Water"
-          outlined
-        />
-        <v-text-field
-          v-model="recipe.temperature"
-          label="Temperature"
-          placeholder="º C"
-          outlined
-        />
-        <v-text-field
-          v-model="recipe.time"
-          label="Time"
-          placeholder="days hours"
-          outlined
-        />
-        <v-textarea
-          v-model="recipe.description"
-          label="Description"
-          placeholder="Tell about the process ... "
-          outlined
-        />
-        <file-upload ref="pic" />
-        <br>
+          <v-text-field
+            v-model="recipe.temperature"
+            label="Temperature"
+            placeholder="º C"
+            outlined
+          />
+          <v-text-field
+            v-model="recipe.time"
+            label="Time"
+            placeholder="days hours"
+            outlined
+          />
+          <v-textarea
+            v-model="recipe.description"
+            label="Description"
+            placeholder="Tell about the process ... "
+            outlined
+          />
+          <file-upload ref="pic" />
+          <br>
+        </v-form>
         <v-btn
           block
           color="success"
           dark
-          @click="save()"
+          @click="validate()"
         >
           {{ buttom }}
         </v-btn>
@@ -92,6 +89,10 @@ export default {
         time: '',
         description: ''
       },
+      valid: true,
+      beerSelectRules: [
+        v => !!(v.title) || 'Beer is required'
+      ],
       buttom: 'Adicionar',
       dropdown_beer: { name: 'Beers', id: '-1' },
       beer_items: []
@@ -106,7 +107,6 @@ export default {
     this.getBeersFromServer()
     for (const beer of this.beers) {
       this.beer_items.push({ title: beer.title, beerid: beer.id })
-      console.log('beer items', this.beer_items)
     }
     if (this.$route.query) {
       this.recipe = this.$route.query
@@ -125,9 +125,6 @@ export default {
     ...mapActions('beers', ['getBeersFromServer']),
     onMouse () {
       document.getElementById('title').innerHTML = '+ una Cerveza? <img height="50px" src="/felicidades.svg">'
-      console.log('Recipe is', this.recipe)
-      console.log('Recipe is', this.dropdown_beer.title)
-      console.log('Recipe is', this.dropdown_beer.beerid)
     },
     offMouse () {
       document.getElementById('title').innerHTML = '+ una Cerveza?'
@@ -137,23 +134,19 @@ export default {
       //   this.$refs.pic.upload(this.recipe.title)
       //     .then(snapshot => this.callback(snapshot))
       // }
-      console.log(this.Beer)
-      this.callback('')
+      if (this.Beer == null) {
+        this.callback('')
+      }
     },
-    loadBeerId () {
-      console.log('wait')
+    validate () {
+      this.$refs.form.validate()
+      this.save()
     },
     callback (snapshot) {
       this.recipe.title = this.dropdown_beer.title
       this.recipe.beerid = this.dropdown_beer.beerid
       this.updateBeerRecipe(this.recipe)
-      // if (this.recipe.id) {
-      //   this.update(this.recipe)
-      //   this.$router.push('/profile')
-      // } else {
-      //   this.post(this.recipe)
-      //   this.$router.push('/profile')
-      // }
+      this.$router.push('/profile')
     }
   }
 }

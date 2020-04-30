@@ -52,9 +52,8 @@ export default {
           storageBucket: process.env.STORAGE_BUCKET,
           messagingSenderId: process.env.MESSAGING_SENDER_ID,
           appId: process.env.APPID
-        // measurementId: process.env.some'
         },
-        onFirebaseHosting: false,
+        onFirebaseHosting: true,
         services: {
           auth: {
             persistence: 'local',

@@ -12,6 +12,7 @@
       <v-card-text>
         <v-form v-model="valid">
           <v-text-field
+            v-model="email"
             masked="true"
             label="Email"
             prepend-icon="mdi-account-circle"

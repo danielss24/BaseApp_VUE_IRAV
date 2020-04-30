@@ -9,12 +9,12 @@
     <v-row>
       <v-col cols="sm">
         <p class="display-1">
-          Como funciona?
+          How it works?
         </p>
         <p
           class="text-justify mb-5"
         >
-          El sistema es muy simple, si produce cerveza, puede agregar la receta de su cerveza, otras personas que vienen aquí pueden contactarlo para varias cosas, una de ellas es intercambiar cerveza, enviar algunas botellas de la cerveza que ella hace y usted envía otros, por supuesto, puede estar dando cerveza, pero no hay cerveza gratis ...
+          The system is very simple, if you produce beer, you can add your beer recipe, other people who come here can contact you for various things, one of them is to exchange beer, send some bottles of the beer that she makes and you send others, of course it may be giving beer, but there is no free beer ...
         </p>
         <div v-if="false">
           <!-- TODO: improve the blockquote design -->

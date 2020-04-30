@@ -2,7 +2,7 @@
   <v-container class="fill-height container" fluid>
     <v-row class="ml-5">
       <p id="title" class="display-1" @mouseover="onMouse" @mouseleave="offMouse">
-        + una Cerveza?
+        A new Recipe?
       </p>
     </v-row>
     <v-row justify="center" align="center">
@@ -110,7 +110,7 @@ export default {
     }
     if (this.$route.query) {
       this.recipe = this.$route.query
-      this.buttom = 'Actualizar'
+      this.buttom = 'Update'
     }
   },
   mounted () {
@@ -124,10 +124,10 @@ export default {
     ...mapActions('recipe', ['post', 'update', 'updateBeerRecipe']),
     ...mapActions('beers', ['getBeersFromServer']),
     onMouse () {
-      document.getElementById('title').innerHTML = '+ una Cerveza? <img height="50px" src="/felicidades.svg">'
+      document.getElementById('title').innerHTML = 'A new Recipe? <img height="50px" src="/happiness.svg">'
     },
     offMouse () {
-      document.getElementById('title').innerHTML = '+ una Cerveza?'
+      document.getElementById('title').innerHTML = 'A new Recipe?'
     },
     save () {
       // if (this.recipe.title) {

@@ -7,7 +7,7 @@
             <v-icon>mdi-account-group</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Equipo</v-list-item-title>
+            <v-list-item-title>Team</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item
@@ -19,7 +19,7 @@
             <v-icon>mdi-account-multiple-plus-outline</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Nueva cuenta</v-list-item-title>
+            <v-list-item-title>New account</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item
@@ -103,7 +103,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <router-link to="/" exact class="irav-icon">
         <v-toolbar-title>
-          <img height="40px" src="/felicidades.svg">beer4share
+          <img height="40px" src="/happiness.svg">beer4share
         </v-toolbar-title>
       </router-link>
     </v-app-bar>

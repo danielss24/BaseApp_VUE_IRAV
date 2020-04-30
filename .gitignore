@@ -94,3 +94,7 @@ cors.json
 
 # gsutils
 /exec*
+
+.firebase/**
+
+static/firebase-auth-sw.js

@@ -2,7 +2,7 @@
   <v-container class="fill-height container" fluid>
     <v-row class="ml-5">
       <p id="title" class="display-1" @mouseover="onMouse" @mouseleave="offMouse">
-        + una Cerveza?
+        + one Beer?
       </p>
     </v-row>
     <v-row justify="center" align="center">
@@ -15,7 +15,7 @@
           <v-text-field
             v-model="beer.title"
             label="Nombre"
-            placeholder="El nombre de tu cerveza"
+            placeholder="The beer name"
             :rules="textRules"
             outlined
             required
@@ -30,7 +30,7 @@
           />
           <v-text-field
             v-model="beer.alcool"
-            label="% de Alcool"
+            label="% de Alcohol"
             outlined
             :rules="textRules"
             required
@@ -39,7 +39,7 @@
             v-model="beer.description"
             outlined
             name="input-7-4"
-            label="Receta"
+            label="Recipe"
             :rules="textRules"
             required
           />
@@ -86,7 +86,7 @@ export default {
         recipe: null
       },
       valid: true,
-      buttom: 'Adicionar',
+      buttom: 'Add',
       textRules: [
         v => !!v || 'Can not be empty'
       ]
@@ -95,17 +95,17 @@ export default {
   created () {
     if (this.$route.query) {
       this.beer = this.$route.query
-      this.buttom = 'Actualizar'
+      this.buttom = 'Update'
     }
   },
   methods: {
     ...mapActions('beer', ['post', 'update']),
     ...mapActions('recipe', ['state']),
     onMouse () {
-      document.getElementById('title').innerHTML = '+ una Cerveza? <img height="50px" src="/felicidades.svg">'
+      document.getElementById('title').innerHTML = '+ one Beer? <img height="50px" src="/happiness.svg">'
     },
     offMouse () {
-      document.getElementById('title').innerHTML = '+ una Cerveza?'
+      document.getElementById('title').innerHTML = '+ one Beer?'
     },
     save () {
       if (this.beer.title) {

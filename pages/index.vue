@@ -16,15 +16,11 @@
         >
           The system is very simple, if you produce beer, you can add your beer recipe, other people who come here can contact you for various things, one of them is to exchange beer, send some bottles of the beer that she makes and you send others, of course it may be giving beer, but there is no free beer ...
         </p>
-        <div v-if="false">
-          <!-- TODO: improve the blockquote design -->
-          <blockquote class="blockquote">
-            3 deseos: salud, dinero y amor...
-          </blockquote>
+        <div v-if="true">
           <blockquote
             class="blockquote"
           >
-            AMOR por la CERVEZA, DINERO para comprarla y SALUD para beberla -- Homer Simpson
+            LOVE for the BEER, MONEY to buy it and HEALTH to drink it -- Homer Simpson
           </blockquote>
         </div>
       </v-col>
@@ -32,8 +28,7 @@
     <v-row>
       <v-col cols="sm">
         <v-toolbar dark color="teal">
-          <v-toolbar-title>Barra libre</v-toolbar-title>
-          <!-- TODO: we can alternate the words above: Cervecera -->
+          <v-toolbar-title>open Bar</v-toolbar-title>
           <v-autocomplete
             v-model="select"
             :loading="loading"
@@ -44,7 +39,7 @@
             flat
             hide-no-data
             hide-details
-            label="Escribe algo sobre la cerveza que estas buscando?"
+            label="search a beer..."
             solo-inverted
           />
           <v-btn icon>

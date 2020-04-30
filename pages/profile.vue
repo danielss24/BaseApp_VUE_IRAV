@@ -27,7 +27,7 @@
         </v-col>
       </v-card>
     </v-row>
-    <v-card-title style="display:block">
+    <v-card-title v-if="!beers" style="display:block">
       BEERS
     </v-card-title>
     <v-row class="mt-5">

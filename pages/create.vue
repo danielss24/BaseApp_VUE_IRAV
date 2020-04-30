@@ -30,7 +30,7 @@
           </v-btn>
           <v-spacer />
           <v-btn color="info" @click="create">
-            Crear
+            Create
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -51,11 +51,17 @@ export default {
     showPassword: false
   }),
   methods: {
-    async create () {
-      await this.$fireAuth.createUserWithEmailAndPassword(
+    create () {
+      this.$fireAuth.createUserWithEmailAndPassword(
         this.email,
         this.password
       )
+        .then((response) => {
+          this.$router.push('/profile')
+        })
+        .catch((error) => {
+          alert(error.message)
+        })
     }
   }
 }

@@ -35,7 +35,7 @@
           color="success"
           to="/create"
         >
-          Registrar
+          Register
         </v-btn>
         <v-spacer />
         <v-btn
@@ -43,7 +43,7 @@
           :disabled="!valid"
           @click="login"
         >
-          Entrar
+          Login
         </v-btn>
       </v-card-actions>
     </v-card>

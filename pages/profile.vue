@@ -10,18 +10,21 @@
             >
           </v-avatar>
           <v-card-subtitle>
-            Beer venido
+            Beer venido / Welcome
           </v-card-subtitle>
           <v-card-title class="pt-0">
             {{ email }}
           </v-card-title>
           <v-card-actions>
             <v-btn color="orange" text to="/recipe">
-              + Recetas
+              +Recipe
+            </v-btn>
+            <v-btn color="yellow" text to="/beer">
+              +Beer
             </v-btn>
 
             <v-btn color="blue" text>
-              Atualizar el perfil
+              Update Profile
             </v-btn>
           </v-card-actions>
         </v-col>

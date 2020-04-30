@@ -49,8 +49,40 @@
             Stock: {{ beer.stock }}
           </v-card-subtitle>
           <v-card-text class="text--primary">
-            <div>{{ beer.description }}</div>
+            Description:
+            <p> {{ beer.description }} </p>
           </v-card-text>
+          <v-expansion-panels>
+          <v-expansion-panel>
+              <v-expansion-panel-header color="grey">
+                Recipe
+                <template v-slot:actions>
+                  <v-icon >mdi-chef-hat</v-icon>
+                </template>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                  <v-card min-width="250">
+                <v-card-subtitle class="pb-0">
+                      Ingrediente: {{ beer.recipe.ingredient1 }}
+                    </v-card-subtitle>
+                    <v-card-subtitle>
+                      Ingrediente: {{ beer.recipe.ingredient2 }}
+                    </v-card-subtitle>
+                    <v-card-subtitle>
+                      Temperature: {{ beer.recipe.temperature }}
+                    </v-card-subtitle>
+                    <v-card-subtitle>
+                      Time: {{ beer.recipe.time }}
+                    </v-card-subtitle>
+                    <v-card-text class="text--primary">
+                      Description:
+                      <div>{{ beer.recipe.description }}</div>
+                    </v-card-text>
+                  </v-card>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+            </v-expansion-panels>
+
           <v-card-actions class="justify-center">
             <v-btn color="blue" :to="{path: '/beer', query: beer}">
               <v-icon>mdi-pencil</v-icon>
@@ -58,7 +90,7 @@
             <v-btn color="green" href="">
               <v-icon>mdi-share</v-icon>
             </v-btn>
-            <v-dialog v-model="dialog" width="600px">
+            <!-- <v-dialog v-model="dialog" width="600px">
               <template v-slot:activator="{ on }">
                 <v-btn
                   color="orange"
@@ -81,11 +113,11 @@
                 </v-card-title>
                 <v-row class="mt-5">
                   <v-card min-width="250">
-                    <!-- <v-img
+                    <v-img
                       class="white--text align-end"
                       :src="getFile(beer.recipe.title)"
-                    /> -->
-                    <!-- <v-card-title>{{ beer.recipe.title }}</v-card-title> -->
+                    />
+                    <v-card-title>{{ beer.recipe.title }}</v-card-title>
                     <v-card-subtitle class="pb-0">
                       ingredient1: {{ beer.recipe.ingredient1 }}
                     </v-card-subtitle>
@@ -110,7 +142,7 @@
                   </v-btn>
                 </v-card-actions>
               </v-card>
-            </v-dialog>
+            </v-dialog> -->
             <v-btn color="red" :to="{path: '/beer', query: beer}">
               <v-icon>mdi-delete</v-icon>
             </v-btn>

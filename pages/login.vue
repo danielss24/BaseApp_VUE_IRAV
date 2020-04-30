@@ -62,6 +62,7 @@ export default {
       v =>
         /^\w+([.-]?\w+)*@(uam\.es)+$/.test(v) ||
         /^\w+([.-]?\w+)*@(estudiante\.uam\.es)+$/.test(v) ||
+        /^\w+([.-]?\w+)*@(gmail\.com)+$/.test(v) ||
         'E-mail tiene que ser valido'
     ],
     valid: null

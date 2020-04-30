@@ -10,8 +10,14 @@
         </h1>
       </v-card-title>
       <v-card-text>
-        <v-form>
-          <v-text-field v-model="email" label="Email" prepend-icon="mdi-account-circle" />
+        <v-form v-model="valid">
+          <v-text-field
+            masked="true"
+            label="Email"
+            prepend-icon="mdi-account-circle"
+            :rules="emailRules"
+            placeholder="user@estudiante.uam.es or user@uam.es"
+          />
           <v-text-field
             v-model="password"
             :type="showPassword ? 'text' : 'password'"
@@ -32,8 +38,8 @@
         </v-btn>
         <v-spacer />
         <v-btn
-          color="
-          info"
+          color="info"
+          :disabled="!valid"
           @click="login"
         >
           Entrar
@@ -50,7 +56,16 @@ export default {
   data: () => ({
     email: '',
     password: '',
-    showPassword: false
+    showPassword: false,
+    emailRules: [
+      v => !!v || 'El e-mail es obligatorio',
+      v =>
+        /^\w+([.-]?\w+)*@(uam\.es)+$/.test(v) ||
+        /^\w+([.-]?\w+)*@(estudiante\.uam\.es)+$/.test(v) ||
+        /^\w+([.-]?\w+)*@(gmail\.com)+$/.test(v) ||
+        'E-mail tiene que ser valido'
+    ],
+    valid: null
   }),
   computed: {
     ...mapState({

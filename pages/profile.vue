@@ -193,15 +193,6 @@ export default {
   created () {
     this.getBeersFromServer()
     console.log('Beers', this.beers)
-    //     this.getFromServer()
-    //     console.log('Recipes', this.recipes)
-    //     for (const recipe of this.recipes) {
-    //       const storageRef = this.$fireStorage.ref()
-    //       const recipeRef = storageRef.child(recipe.title)
-    //       recipeRef.getDownloadURL()
-    //         .then(url => this.getUrl(recipe.id, url))
-    //         .catch(error => this.fakeUrl(recipe.id, error))
-    //     }
   },
   methods: {
     ...mapActions('recipes', ['getFromServer']),

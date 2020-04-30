@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col v-for="n in team" :key="n" cols="sm">
+      <v-col v-for="(n, ix) in team" :key="ix" cols="sm">
         <v-card class="mx-auto" min-width="250">
           <v-img
             class="white--text align-end"

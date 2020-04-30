@@ -150,19 +150,18 @@ export default {
       reset: 'RESET_STORE'
     }),
     logout () {
-      this.reset()
-      this.$router.push('/')
+      this.$fireAuth.signOut()
+        .then((response) => {
+          this.reset()
+          this.$router.push('/')
+        })
     }
   }
 }
 </script>
 
 <style>
-.irav-icon:link {
-  text-decoration: none;
-}
-
-.irav-icon:visited {
-  text-decoration: none;
-}
+  .irav-icon:visited, .irav-icon:link {
+    text-decoration: none;
+  }
 </style>

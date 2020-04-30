@@ -1,12 +1,12 @@
 export default {
   isLoggedIn: (state) => {
     try {
-      return state.authUser.id !== null
+      return state.user.email != null
     } catch {
       return false
     }
   },
   email: (state) => {
-    return state.authUser.email
+    return state.user.email
   }
 }

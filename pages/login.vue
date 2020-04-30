@@ -54,11 +54,18 @@ export default {
   }),
   computed: {
     ...mapState({
-      authUser: state => state.authUser
+      authUser: state => state.user
     }),
     ...mapGetters({
       isLoggedIn: 'isLoggedIn'
     })
+  },
+  created () {
+    // eslint-disable-next-line dot-notation
+    const isLoggedIn = this.$store.getters['isLoggedIn']
+    if (isLoggedIn) {
+      this.$router.push('/profile')
+    }
   },
   methods: {
     ...mapActions({
@@ -70,7 +77,7 @@ export default {
     login () {
       this.$fireAuth.signInWithEmailAndPassword(this.email, this.password)
         .then((response) => {
-          this.set({ uid: this.$fireAuth.currentUser.uid, email: this.$fireAuth.currentUser.email })
+          this.set({ authUser: response.user, claims: response.addicionalUserInfo })
           this.$router.push('/profile')
         })
         .catch((error) => {

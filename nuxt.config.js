@@ -56,11 +56,12 @@ export default {
         onFirebaseHosting: false,
         services: {
           auth: {
-            // initialize: {
-            //   onAuthStateChangedMutation: "SET_AUTH_USER",
-            //   onAuthStateChangedAction: null
-            // },
-            ssr: false
+            persistence: 'local',
+            initialize: {
+              onAuthStateChangedMutation: 'SET_AUTH_USER',
+              onAuthStateChangedAction: 'onAuthStateChanged'
+            },
+            ssr: true
           },
           firestore: {
             enablePersistence: true

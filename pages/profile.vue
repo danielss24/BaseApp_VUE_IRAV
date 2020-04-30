@@ -99,6 +99,12 @@ export default {
         .catch(error => this.fakeUrl(recipe.id, error))
     }
   },
+  mounted () {
+    // eslint-disable-next-line dot-notation
+    if (!this.$store.state.user) {
+      this.$router.push('/login')
+    }
+  },
   methods: {
     ...mapActions('recipes', ['getFromServer']),
     update (recipe) {

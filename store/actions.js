@@ -9,11 +9,10 @@ export default {
     }
   },
 
-  onAuthStateChanged ({ commit }, { authUser }) {
+  onAuthStateChanged ({ commit }, { authUser, claims }) {
     if (!authUser) {
       commit('RESET_STORE')
-      return
     }
-    commit('SET_AUTH_USER', { authUser })
+    commit('SET_AUTH_USER', { authUser, claims })
   }
 }

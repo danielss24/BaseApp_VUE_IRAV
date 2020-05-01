@@ -23,7 +23,7 @@
               +Beer
             </v-btn>
 
-            <v-btn color="blue" text>
+            <v-btn v-if="false" color="blue" text>
               Update Profile
             </v-btn>
           </v-card-actions>
@@ -106,7 +106,7 @@
   </v-container>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -127,12 +127,9 @@ export default {
       }
     }
   },
-  created () {
-    if (!this.beers.length) {
-      this.getBeersFromServer()
-    }
-  },
   mounted () {
+    this.reset()
+    this.getBeersFromServer()
     // eslint-disable-next-line dot-notation
     if (!this.$store.state.user) {
       this.$router.push('/login')
@@ -141,6 +138,7 @@ export default {
   methods: {
     ...mapActions('recipes', ['getFromServer']),
     ...mapActions('beers', ['getBeersFromServer', 'deleteBeerServer']),
+    ...mapMutations('beers', ['reset']),
     update (recipe) {
       this.$router.push({ path: '/recipe', params: recipe })
     },

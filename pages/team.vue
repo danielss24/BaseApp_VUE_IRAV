@@ -36,7 +36,7 @@ export default {
     return {
       team: [
         { name: 'Maurilio Atila', position: 'Computer Scientist', email: 'maurilio.carvalho@estudiante.uam.com', image: '/mau-icon.jpg' },
-        { name: 'Jim Dios Luna', position: 'Computer Scientist', email: 'jim.dios@estudiante.uam.es', image: '/jim-icon.png' },
+        { name: 'Jim Dios Luna', position: 'Computer Scientist', email: 'jim.dios@estudiante.uam.es', image: '/jim-icon.jpg' },
         { name: 'Daniel Serena', position: 'Computer Scientist', email: 'daniel.serenas@estudiante.uam.es', image: '/dani-icon.png' },
         { name: 'Juan Escalante', position: 'Computer Scientist', email: 'juanandres.escalante@estudiante.uam.es', image: '/juan-icon.png' }
       ]

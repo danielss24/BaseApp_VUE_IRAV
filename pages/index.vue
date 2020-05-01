@@ -27,7 +27,7 @@
     </v-row>
     <v-row>
       <v-col cols="sm">
-        <v-toolbar dark color="teal">
+        <v-toolbar v-if="false" dark color="teal">
           <v-toolbar-title>open Bar</v-toolbar-title>
           <v-autocomplete
             v-model="select"
@@ -48,62 +48,102 @@
         </v-toolbar>
       </v-col>
     </v-row>
+    <v-card-title v-if="!beers" style="display:block">
+      BEERS
+    </v-card-title>
     <v-row class="mt-5">
-      <v-col v-for="recipe in recipes" :key="recipe.title" cols="sm">
-        <v-card min-width="250">
+      <v-col v-for="(beer, index) in beers" :key="index" cols="sm">
+        <v-card>
           <v-img
             class="white--text align-end"
-            src="/beer-bottle.svg"
+            :src="beer.image"
           />
-
-          <v-card-title>{{ recipe.title }}</v-card-title>
-
+          <v-icon>mdi-glass-mug-variant</v-icon>
+          <v-card-title>{{ beer.title }}</v-card-title>
           <v-card-subtitle class="pb-0">
-            IBU: {{ recipe.ibu }}
+            IBU: {{ beer.ibu }}
           </v-card-subtitle>
           <v-card-subtitle>
-            Alcool: {{ recipe.alcool }}
+            Alcool: {{ beer.alcool }}
           </v-card-subtitle>
-
+          <v-card-subtitle>
+            Stock: {{ beer.stock }}
+          </v-card-subtitle>
           <v-card-text class="text--primary">
-            <div>{{ recipe.description }}</div>
+            Description:
+            <p> {{ beer.description }} </p>
           </v-card-text>
-
-          <v-card-actions>
-            <v-btn color="orange" text>
-              Share
-            </v-btn>
-
-            <v-btn color="orange" text>
-              Explore
-            </v-btn>
-          </v-card-actions>
+          <v-expansion-panels vf-if="beer.recipe">
+            <v-expansion-panel>
+              <v-expansion-panel-header color="grey" disable-icon-rotate>
+                Recipe
+                <template v-slot:actions>
+                  <v-icon>mdi-chef-hat</v-icon>
+                </template>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content color="grey">
+                <v-card min-width="250">
+                  <v-card-subtitle class="pb-0">
+                    Ingredient: {{ beer.recipe.ingredient1 }}
+                  </v-card-subtitle>
+                  <v-card-subtitle>
+                    Ingredient: {{ beer.recipe.ingredient2 }}
+                  </v-card-subtitle>
+                  <v-card-subtitle>
+                    Temperature: {{ beer.recipe.temperature }}
+                  </v-card-subtitle>
+                  <v-card-subtitle>
+                    Time: {{ beer.recipe.time }}
+                  </v-card-subtitle>
+                  <v-card-text class="text--primary">
+                    Description:
+                    <div>{{ beer.recipe.description }}</div>
+                  </v-card-text>
+                </v-card>
+                <v-btn color="orange" :to="{path: '/recipe', query: beer.recipe}">
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
-
 <script>
 import { mapActions } from 'vuex'
-
 export default {
   data () {
     return {
-      items: [],
-      loading: '',
-      recipes: [],
-      search: '',
-      select: ''
+      files: {},
+      dialog: false
     }
   },
-  created () {
-    this.recipes = this.$store.getters['recipes/get']
+  computed: {
+    beers () {
+      const beers = this.$store.getters['beers/get']
+      return beers
+    }
+  },
+  mounted () {
+    if (!this.beers.length) {
+      this.getBeersFromServer()
+    }
+    console.log(this.beers)
   },
   methods: {
-    ...mapActions('recipes', ['getFromServer'])
+    ...mapActions('recipes', ['getFromServer']),
+    ...mapActions('beers', ['getBeersFromServer', 'deleteBeerServer']),
+    update (recipe) {
+      this.$router.push({ path: '/recipe', params: recipe })
+    },
+    fakeUrl (id, error) {
+      this.files[id] = '/beer-bottle.svg'
+    },
+    deleteBeer (beer) {
+      this.deleteBeerServer(beer)
+    }
   }
 }
 </script>
-
-<style></style>

@@ -39,7 +39,7 @@ export const actions = {
             if (beer.exists) {
               storage
                 .ref()
-                .child(beer.data().title)
+                .child(beer.data().title.toLowerCase())
                 .getDownloadURL()
                 .then((url) => {
                   const image = url
@@ -78,6 +78,7 @@ export const actions = {
                         recipe.forEach((aux) => {
                           if (aux.exists) {
                             beer.recipe = aux.data()
+                            beer.image = '/beer-bottle.svg'
                             commit('add', beer)
                           }
                         })

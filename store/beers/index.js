@@ -5,6 +5,10 @@ export const mutations = {
   add (state, beer) {
     state.beers.push(beer)
   },
+  delete (state, beerid) {
+    const index = state.beers.findIndex(beer => beer.id === beerid)
+    state.beers.splice(index, 1)
+  },
   reset (state) {
     state.beers = []
   }
@@ -40,5 +44,9 @@ export const actions = {
           }
         })
       })
+  },
+  deleteBeerServer ({ commit }, beer) {
+    this.$fireStore.collection('beers').doc(beer.id).delete()
+    commit('delete', beer.id)
   }
 }

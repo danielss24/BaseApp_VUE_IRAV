@@ -96,7 +96,7 @@
             <v-btn color="green" href="">
               <v-icon>mdi-share</v-icon>
             </v-btn>
-            <v-btn color="red" :to="{path: '/beer', query: beer}">
+            <v-btn color="red" v-on:click="deleteBeer(beer)">
               <v-icon>mdi-delete</v-icon>
             </v-btn>
           </v-card-actions>
@@ -138,7 +138,7 @@ export default {
   },
   methods: {
     ...mapActions('recipes', ['getFromServer']),
-    ...mapActions('beers', ['getBeersFromServer']),
+    ...mapActions('beers', ['getBeersFromServer', 'deleteBeerServer']),
     update (recipe) {
       this.$router.push({ path: '/recipe', params: recipe })
     },
@@ -158,6 +158,9 @@ export default {
     },
     fakeUrl (id, error) {
       this.files[id] = '/beer-bottle.svg'
+    },
+    deleteBeer (beer) {
+      this.deleteBeerServer(beer)
     }
   }
 }

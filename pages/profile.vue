@@ -35,12 +35,9 @@
     </v-card-title>
     <v-row class="mt-5">
       <v-col v-for="(beer, index) in beers" :key="index" cols="sm">
-        <v-card min-width="300" max-width="300">
+        <v-card>
           <v-img
             class="white--text align-end"
-            contain
-            height="300px"
-            width="300px"
             :src="beer.image"
           />
           <v-icon>mdi-glass-mug-variant</v-icon>

@@ -122,7 +122,6 @@ export default {
     },
     save () {
       this.$refs.pic.upload(this.beer.title).then(snapshot => this.callback(snapshot))
-      this.callback('')
     },
     validate () {
       if (this.$refs.form.validate()) {

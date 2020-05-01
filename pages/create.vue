@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height container" fluid>
-    <video style="position:fixed; opacity:0.3; left: 0px;" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-      <source src="/bg.mp4" type="video/mp4">
+    <video style="position:fixed; left: 0px;" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+      <source src="/create.mp4" type="video/mp4">
     </video>
     <v-row>
       <v-card width="400" class="mx-auto mt-5" tile>

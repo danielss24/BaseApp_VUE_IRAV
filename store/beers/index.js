@@ -11,7 +11,8 @@ export const mutations = {
       description: beer.data().description,
       stock: beer.data().stock,
       image: beer.image,
-      recipe: beer.recipe
+      recipe: beer.recipe,
+      recipeValid: beer.recipeValid
     }
     state.beers.push(beerAux)
   },
@@ -52,6 +53,7 @@ export const actions = {
                         recipe.forEach((aux) => {
                           if (aux.exists) {
                             beer.recipe = aux.data()
+                            beer.recipeValid = !(beer.recipe.title === beer.recipe.ingredient1 && beer.recipe.title === beer.recipe.ingredient2 && beer.recipe.title === beer.recipe.temperature && beer.recipe.title === beer.recipe.time && beer.recipe.title === beer.recipe.description)
                             beer.image = image
                             commit('add', beer)
                           }
@@ -63,6 +65,7 @@ export const actions = {
                     ).catch((error) => {
                       console.log(error)
                       beer.image = '/beer-bottle.svg'
+                      beer.recipeValid = false
                       beer.recipe = { title: '', ingredient1: '', ingredient2: '', temperature: '', time: '', description: '' }
                       commit('add', beer)
                     })
@@ -79,6 +82,7 @@ export const actions = {
                           if (aux.exists) {
                             beer.recipe = aux.data()
                             beer.image = '/beer-bottle.svg'
+                            beer.recipeValid = !(beer.recipe.title === beer.recipe.ingredient1 && beer.recipe.title === beer.recipe.ingredient2 && beer.recipe.title === beer.recipe.temperature && beer.recipe.title === beer.recipe.time && beer.recipe.title === beer.recipe.description)
                             commit('add', beer)
                           }
                         })
@@ -88,6 +92,7 @@ export const actions = {
                     })
                     .catch((error) => {
                       console.log(error)
+                      beer.recipeValid = false
                       beer.recipe = { title: '', ingredient1: '', ingredient2: '', temperature: '', time: '', description: '' }
                       commit('add', beer)
                     })

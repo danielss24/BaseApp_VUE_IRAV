@@ -1,6 +1,7 @@
 {
   "projects": {
     "default": "beer4share-uam",
-    "cev": "beer4share-uam"
+    "cev": "beer4share-uam",
+    "dev": "beer4share-uam"
   }
 }

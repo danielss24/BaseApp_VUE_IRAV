@@ -1,4 +1,3 @@
-/* eslint-disable vue/html-self-closing */
 <template>
   <v-container>
     <v-row v-if="false">
@@ -16,7 +15,7 @@
         >
           The system is very simple, if you produce beer, you can add your beer recipe, other people who come here can contact you for various things, one of them is to exchange beer, send some bottles of the beer that she makes and you send others, of course it may be giving beer, but there is no free beer ...
         </p>
-        <div v-if="true">
+        <div>
           <blockquote
             class="blockquote"
           >
@@ -58,22 +57,20 @@
             class="white--text align-end"
             :src="beer.image"
           />
-          <v-icon>mdi-glass-mug-variant</v-icon>
+          <v-icon class="ml-3 mt-2">
+            mdi-glass-mug-variant
+          </v-icon>
           <v-card-title>{{ beer.title }}</v-card-title>
-          <v-card-subtitle class="pb-0">
-            IBU: {{ beer.ibu }}
-          </v-card-subtitle>
-          <v-card-subtitle>
-            Alcool: {{ beer.alcool }}
-          </v-card-subtitle>
-          <v-card-subtitle>
+          <v-card-subtitle class="pb-2 text--primary">
+            IBU: {{ beer.ibu }}<br>
+            Alcool: {{ beer.alcool }}<br>
             Stock: {{ beer.stock }}
           </v-card-subtitle>
-          <v-card-text class="text--primary">
+          <v-card-text v-if="!beer.description" class="text--primary">
             Description:
             <p> {{ beer.description }} </p>
           </v-card-text>
-          <v-expansion-panels vf-if="beer.recipe">
+          <v-expansion-panels :disabled="!beer.recipeValid">
             <v-expansion-panel>
               <v-expansion-panel-header color="grey" disable-icon-rotate>
                 Recipe
@@ -83,26 +80,17 @@
               </v-expansion-panel-header>
               <v-expansion-panel-content color="grey">
                 <v-card min-width="250">
-                  <v-card-subtitle class="pb-0">
-                    Ingredient: {{ beer.recipe.ingredient1 }}
-                  </v-card-subtitle>
-                  <v-card-subtitle>
-                    Ingredient: {{ beer.recipe.ingredient2 }}
-                  </v-card-subtitle>
-                  <v-card-subtitle>
-                    Temperature: {{ beer.recipe.temperature }}
-                  </v-card-subtitle>
-                  <v-card-subtitle>
+                  <v-card-subtitle class="pb-2 text--primary">
+                    Ingredient: {{ beer.recipe.ingredient1 }}<br>
+                    Ingredient: {{ beer.recipe.ingredient2 }}<br>
+                    Temperature: {{ beer.recipe.temperature }}<br>
                     Time: {{ beer.recipe.time }}
                   </v-card-subtitle>
-                  <v-card-text class="text--primary">
+                  <v-card-text v-if="beer.recipe.description !== ''" class="text--primary">
                     Description:
                     <div>{{ beer.recipe.description }}</div>
                   </v-card-text>
                 </v-card>
-                <v-btn color="orange" :to="{path: '/recipe', query: beer.recipe}">
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
@@ -112,7 +100,7 @@
   </v-container>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -127,14 +115,13 @@ export default {
     }
   },
   mounted () {
-    if (!this.beers.length) {
-      this.getBeersFromServer()
-    }
-    console.log(this.beers)
+    this.reset()
+    this.getBeersFromServer()
   },
   methods: {
     ...mapActions('recipes', ['getFromServer']),
     ...mapActions('beers', ['getBeersFromServer', 'deleteBeerServer']),
+    ...mapMutations('beers', ['reset']),
     update (recipe) {
       this.$router.push({ path: '/recipe', params: recipe })
     },

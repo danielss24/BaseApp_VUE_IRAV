@@ -40,22 +40,20 @@
             class="white--text align-end"
             :src="beer.image"
           />
-          <v-icon>mdi-glass-mug-variant</v-icon>
+          <v-icon class="ml-3 mt-2">
+            mdi-glass-mug-variant
+          </v-icon>
           <v-card-title>{{ beer.title }}</v-card-title>
-          <v-card-subtitle class="pb-0">
-            IBU: {{ beer.ibu }}
-          </v-card-subtitle>
-          <v-card-subtitle>
-            Alcool: {{ beer.alcool }}
-          </v-card-subtitle>
-          <v-card-subtitle>
+          <v-card-subtitle class="pb-2 text--primary">
+            IBU: {{ beer.ibu }}<br>
+            Alcool: {{ beer.alcool }}<br>
             Stock: {{ beer.stock }}
           </v-card-subtitle>
-          <v-card-text class="text--primary">
+          <v-card-text v-if="!beer.description" class="text--primary">
             Description:
             <p> {{ beer.description }} </p>
           </v-card-text>
-          <v-expansion-panels>
+          <v-expansion-panels :disabled="!beer.recipeValid">
             <v-expansion-panel>
               <v-expansion-panel-header color="grey" disable-icon-rotate>
                 Recipe
@@ -65,41 +63,20 @@
               </v-expansion-panel-header>
               <v-expansion-panel-content color="grey">
                 <v-card min-width="250">
-                  <v-card-subtitle class="pb-0">
-                    Ingredient: {{ beer.recipe.ingredient1 }}
-                  </v-card-subtitle>
-                  <v-card-subtitle>
-                    Ingredient: {{ beer.recipe.ingredient2 }}
-                  </v-card-subtitle>
-                  <v-card-subtitle>
-                    Temperature: {{ beer.recipe.temperature }}
-                  </v-card-subtitle>
-                  <v-card-subtitle>
+                  <v-card-subtitle class="pb-2 text--primary">
+                    Ingredient: {{ beer.recipe.ingredient1 }}<br>
+                    Ingredient: {{ beer.recipe.ingredient2 }}<br>
+                    Temperature: {{ beer.recipe.temperature }}<br>
                     Time: {{ beer.recipe.time }}
                   </v-card-subtitle>
-                  <v-card-text class="text--primary">
+                  <v-card-text v-if="beer.recipe.description !== ''" class="text--primary">
                     Description:
                     <div>{{ beer.recipe.description }}</div>
                   </v-card-text>
                 </v-card>
-                <v-btn color="orange" :to="{path: '/recipe', query: beer.recipe}">
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
-
-          <v-card-actions class="justify-center">
-            <v-btn color="blue" :to="{path: '/beer', query: beer}">
-              <v-icon>mdi-pencil</v-icon>
-            </v-btn>
-            <v-btn color="green" href="">
-              <v-icon>mdi-share</v-icon>
-            </v-btn>
-            <v-btn color="red" @click="deleteBeer(beer)">
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
-          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>

@@ -5,7 +5,7 @@
         <v-col cols="">
           <v-avatar size="100">
             <img
-              src="/mau-icon.jpg"
+              src="/drink.svg"
               alt="Maurilio Atila"
             >
           </v-avatar>

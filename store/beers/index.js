@@ -40,7 +40,6 @@ export const actions = {
               storage
                 .ref()
                 .child(beer.data().title)
-                // .child('onca-bocejando.png')
                 .getDownloadURL()
                 .then((url) => {
                   const image = url

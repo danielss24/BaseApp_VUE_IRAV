@@ -1,5 +1,6 @@
 export default {
   async nuxtServerInit ({ dispatch }, ctx) {
+    console.log('onAuthStateChangedjuan')
     if (ctx.res && ctx.res.locals && ctx.res.locals.user) {
       const { allClaims: claims, ...authUser } = ctx.res.locals.user
       await dispatch('onAuthStateChanged', {

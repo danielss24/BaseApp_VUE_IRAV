@@ -3,7 +3,16 @@ export const state = () => ({
 })
 export const mutations = {
   add (state, beer) {
-    state.beers.push(beer)
+    const beerAux = {
+      title: beer.id,
+      ibu: beer.data().ibu,
+      alcool: beer.data().alcool,
+      description: beer.data().description,
+      stock: beer.data().stock,
+      image: beer.image,
+      recipe: beer.recipe
+    }
+    state.beers.push(beerAux)
   },
   delete (state, beerid) {
     const index = state.beers.findIndex(beer => beer.id === beerid)
@@ -19,34 +28,73 @@ export const getters = {
   }
 }
 export const actions = {
-  async nuxtServerInit ({ dispatch }, ctx) {
-    await dispatch('beers/getBeersFromServer')
-  },
-  async getBeersFromServer ({ commit }) {
-    console.log('getBeersFromServerjuan')
-    const BDFB = this.$fireStore
-    await this.$fireStore.collection('beers').get().then(
-      (beers) => {
-        commit('reset')
-        beers.forEach((beer) => {
-          if (beer.exists) {
-            const beerPayload = beer.data()
-            beerPayload.id = beer.id
-            BDFB.collection('beers').doc(beer.id).collection('recipe').get().then(
-              (recipe) => {
-                recipe.forEach((aux) => {
-                  if (aux.exists) {
-                    beerPayload.recipe = aux.data()
-                    commit('add', beerPayload)
-                  }
+  getBeersFromServer ({ commit }) {
+    const fire = this.$fireStore
+    const storage = this.$fireStorage
+    fire.collection('beers').get()
+      .then(
+        (beers) => {
+          beers.docs.forEach((beer) => {
+            if (beer.exists) {
+              storage
+                .ref()
+                // .child(beer.data().title)
+                .child('onca-bocejando.png')
+                .getDownloadURL()
+                .then((url) => {
+                  const image = url
+                  fire.collection('beers')
+                    .doc(beer.id)
+                    .collection('recipe')
+                    .get()
+                    .then((recipe) => {
+                      if (recipe) {
+                        recipe.forEach((aux) => {
+                          if (aux.exists) {
+                            beer.recipe = aux.data()
+                            beer.image = image
+                            commit('add', beer)
+                          }
+                        })
+                      } else {
+                        commit('add', beer)
+                      }
+                    }
+                    ).catch((error) => {
+                      console.log(error)
+                      beer.recipe = { title: '', ingredient1: '', ingredient2: '', temperature: '', time: '', description: '' }
+                      commit('add', beer)
+                    })
                 })
-              }
-            ).catch((Exception) => {
-              beerPayload.recipe = { title: '', ingredient1: '', ingredient2: '', temperature: '', time: '', description: '' }
-            })
-            // console.log('beerPayload', beerPayload)
-          }
+                .catch((error) => {
+                  console.log(error)
+                  fire.collection('beers')
+                    .doc(beer.id)
+                    .collection('recipe')
+                    .get()
+                    .then((recipe) => {
+                      if (recipe) {
+                        recipe.forEach((aux) => {
+                          if (aux.exists) {
+                            beer.recipe = aux.data()
+                            commit('add', beer)
+                          }
+                        })
+                      } else {
+                        commit('add', beer)
+                      }
+                    })
+                    .catch((error) => {
+                      console.log(error)
+                      beer.recipe = { title: '', ingredient1: '', ingredient2: '', temperature: '', time: '', description: '' }
+                      commit('add', beer)
+                    })
+                })
+            }
+          })
         })
+      .catch((error) => {
+        console.log(error)
       })
   },
   deleteBeerServer ({ commit }, beer) {

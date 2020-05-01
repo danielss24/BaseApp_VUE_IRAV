@@ -33,9 +33,9 @@ export default {
   data () {
     return {
       team: [
-        { name: 'Maurilio Atila', position: 'Computer Scientist', email: 'teste@teste.com' },
-        { name: 'Jim Dios', position: 'Computer Scientist', email: 'teste@teste.com' },
-        { name: 'Daniel Sirena', position: 'Computer Scientist', email: 'teste@teste.com' },
+        { name: 'Maurilio Atila', position: 'Computer Scientist', email: 'maurilio.carvalho@estudiante.uam.com' },
+        { name: 'Jim Dios Luna', position: 'Computer Scientist', email: 'teste@teste.com' },
+        { name: 'Daniel Serena', position: 'Computer Scientist', email: 'teste@teste.com' },
         { name: 'Juan Escalante', position: 'Computer Scientist', email: 'teste@teste.com' }
 
       ]

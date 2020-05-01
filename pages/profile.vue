@@ -38,7 +38,7 @@
         <v-card min-width="250">
           <v-img
             class="white--text align-end"
-            :src="getFile(beer.id)"
+            :src="files[beer.title]"
           />
           <v-icon>mdi-glass-mug-variant</v-icon>
           <v-card-title>{{ beer.title }}</v-card-title>
@@ -128,7 +128,12 @@ export default {
     }
   },
   created () {
-    this.getBeersFromServer()
+    // this.getBeersFromServer()
+    this.beers.forEach((beer) => {
+      this.getFile(beer.title).then((url) => {
+        this.files[beer.title] = url
+      })
+    })
   },
   mounted () {
     // eslint-disable-next-line dot-notation
@@ -142,19 +147,10 @@ export default {
     update (recipe) {
       this.$router.push({ path: '/recipe', params: recipe })
     },
-    getFile (id) {
-      if (this.files) {
-        return this.files[id]
-      }
-      return '/beer-bottle.svg'
-    },
-    getUrl (id, url) {
-      const xhr = new XMLHttpRequest()
-      xhr.responseType = 'blob'
-      xhr.onload = function (event) {}
-      xhr.open('GET', url)
-      xhr.send()
-      this.files[id] = url
+    async getFile (id) {
+      const fileUrl = await this.$fireStorage.ref().child(id).getDownloadURL()
+      console.log(fileUrl)
+      return fileUrl
     },
     fakeUrl (id, error) {
       this.files[id] = '/beer-bottle.svg'

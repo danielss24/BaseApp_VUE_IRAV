@@ -15,7 +15,11 @@ export const getters = {
   }
 }
 export const actions = {
+  async nuxtServerInit ({ dispatch }, ctx) {
+    await dispatch('beers/getBeersFromServer')
+  },
   async getBeersFromServer ({ commit }) {
+    console.log('getBeersFromServerjuan')
     const BDFB = this.$fireStore
     await this.$fireStore.collection('beers').get().then(
       (beers) => {

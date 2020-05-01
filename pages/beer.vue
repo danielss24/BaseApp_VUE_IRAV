@@ -108,11 +108,7 @@ export default {
       document.getElementById('title').innerHTML = '+ one Beer?'
     },
     save () {
-      // TODO: I removed because is not working very well
-      // if (this.beer.title) {
-      //   this.$refs.pic.upload(this.beer.title)
-      //   .then(snapshot => this.callback(snapshot))
-      // }
+      this.$refs.pic.upload(this.beer.title).then(snapshot => this.callback(snapshot))
       this.callback('')
     },
     validate () {

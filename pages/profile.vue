@@ -128,7 +128,9 @@ export default {
     }
   },
   created () {
-    this.getBeersFromServer()
+    if (!this.beers.length) {
+      this.getBeersFromServer()
+    }
   },
   mounted () {
     // eslint-disable-next-line dot-notation

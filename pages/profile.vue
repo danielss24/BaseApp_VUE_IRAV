@@ -35,9 +35,12 @@
     </v-card-title>
     <v-row class="mt-5">
       <v-col v-for="(beer, index) in beers" :key="index" cols="sm">
-        <v-card min-width="250">
+        <v-card min-width="300" max-width="300">
           <v-img
             class="white--text align-end"
+            contain
+            height="300px"
+            width="300px"
             :src="beer.image"
           />
           <v-icon>mdi-glass-mug-variant</v-icon>
@@ -96,7 +99,7 @@
             <v-btn color="green" href="">
               <v-icon>mdi-share</v-icon>
             </v-btn>
-            <v-btn color="red" :to="{path: '/beer', query: beer}">
+            <v-btn color="red" @click="deleteBeer(beer)">
               <v-icon>mdi-delete</v-icon>
             </v-btn>
           </v-card-actions>
@@ -138,12 +141,15 @@ export default {
   },
   methods: {
     ...mapActions('recipes', ['getFromServer']),
-    ...mapActions('beers', ['getBeersFromServer']),
+    ...mapActions('beers', ['getBeersFromServer', 'deleteBeerServer']),
     update (recipe) {
       this.$router.push({ path: '/recipe', params: recipe })
     },
     fakeUrl (id, error) {
       this.files[id] = '/beer-bottle.svg'
+    },
+    deleteBeer (beer) {
+      this.deleteBeerServer(beer)
     }
   }
 }

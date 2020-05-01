@@ -15,6 +15,10 @@ export const mutations = {
     }
     state.beers.push(beerAux)
   },
+  delete (state, beerid) {
+    const index = state.beers.findIndex(beer => beer.id === beerid)
+    state.beers.splice(index, 1)
+  },
   reset (state) {
     state.beers = []
   }
@@ -36,7 +40,6 @@ export const actions = {
               storage
                 .ref()
                 .child(beer.data().title)
-                // .child('onca-bocejando.png')
                 .getDownloadURL()
                 .then((url) => {
                   const image = url
@@ -94,5 +97,9 @@ export const actions = {
       .catch((error) => {
         console.log(error)
       })
+  },
+  deleteBeerServer ({ commit }, beer) {
+    this.$fireStore.collection('beers').doc(beer.id).delete()
+    commit('delete', beer.id)
   }
 }

@@ -14,41 +14,41 @@
         >
           <v-text-field
             v-model="beer.title"
+            :rules="nameRules"
             label="Nombre"
             placeholder="The beer name"
-            :rules="textRules"
             outlined
             required
           />
           <v-text-field
             v-model="beer.ibu"
+            :rules="ibuRules"
             label="IBU"
             placeholder="International Bitterness Units scale"
             outlined
-            :rules="textRules"
             required
           />
           <v-text-field
             v-model="beer.alcool"
+            :rules="alcoolRules"
             label="% de Alcohol"
             outlined
-            :rules="textRules"
             required
           />
           <v-textarea
             v-model="beer.description"
             outlined
             name="input-7-4"
-            label="Recipe"
-            :rules="textRules"
+            :rules="descriptionRules"
+            label="Description"
             required
           />
           <v-text-field
             v-model="beer.stock"
+            :rules="stockRules"
             label="Stock"
             placeholder="Uds. of beers"
             outlined
-            :rules="textRules"
             required
           />
           <br>
@@ -56,6 +56,7 @@
           <br>
         </v-form>
         <v-btn
+          :disabled="!valid"
           block
           color="success"
           dark
@@ -87,7 +88,19 @@ export default {
       },
       valid: true,
       buttom: 'Add',
-      textRules: [
+      nameRules: [
+        v => !!v || 'Can not be empty'
+      ],
+      ibuRules: [
+        v => !!v || 'Can not be empty'
+      ],
+      alcoolRules: [
+        v => !!v || 'Can not be empty'
+      ],
+      descriptionRules: [
+        v => !!v || 'Can not be empty'
+      ],
+      stockRules: [
         v => !!v || 'Can not be empty'
       ]
     }
@@ -112,8 +125,7 @@ export default {
       this.callback('')
     },
     validate () {
-      this.$refs.form.validate()
-      if (this.valid === true) {
+      if (this.$refs.form.validate()) {
         this.save()
       }
     },

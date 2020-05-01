@@ -40,7 +40,7 @@
             outlined
             name="input-7-4"
             :rules="descriptionRules"
-            label="Recipe"
+            label="Description"
             required
           />
           <v-text-field

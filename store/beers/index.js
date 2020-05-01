@@ -4,7 +4,8 @@ export const state = () => ({
 export const mutations = {
   add (state, beer) {
     const beerAux = {
-      title: beer.id,
+      title: beer.data().title,
+      id: beer.id,
       ibu: beer.data().ibu,
       alcool: beer.data().alcool,
       description: beer.data().description,
@@ -34,8 +35,8 @@ export const actions = {
             if (beer.exists) {
               storage
                 .ref()
-                // .child(beer.data().title)
-                .child('onca-bocejando.png')
+                .child(beer.data().title)
+                // .child('onca-bocejando.png')
                 .getDownloadURL()
                 .then((url) => {
                   const image = url
@@ -44,7 +45,7 @@ export const actions = {
                     .collection('recipe')
                     .get()
                     .then((recipe) => {
-                      if (recipe) {
+                      if (recipe.docs.length) {
                         recipe.forEach((aux) => {
                           if (aux.exists) {
                             beer.recipe = aux.data()
@@ -58,6 +59,7 @@ export const actions = {
                     }
                     ).catch((error) => {
                       console.log(error)
+                      beer.image = '/beer-bottle.svg'
                       beer.recipe = { title: '', ingredient1: '', ingredient2: '', temperature: '', time: '', description: '' }
                       commit('add', beer)
                     })
@@ -69,7 +71,7 @@ export const actions = {
                     .collection('recipe')
                     .get()
                     .then((recipe) => {
-                      if (recipe) {
+                      if (recipe.docs.length) {
                         recipe.forEach((aux) => {
                           if (aux.exists) {
                             beer.recipe = aux.data()

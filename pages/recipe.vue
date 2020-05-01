@@ -55,8 +55,6 @@
             placeholder="Tell about the process ... "
             outlined
           />
-          <file-upload ref="pic" />
-          <br>
         </v-form>
         <v-btn
           block
@@ -72,11 +70,9 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
-import FileUpload from '../components/FileUpload'
 
 export default {
   components: {
-    FileUpload
   },
   data () {
     return {
@@ -89,7 +85,7 @@ export default {
         time: '',
         description: ''
       },
-      valid: true,
+      valid: false,
       beerSelectRules: [
         v => !!(v.title) || 'Beer is required'
       ],
@@ -139,8 +135,9 @@ export default {
       }
     },
     validate () {
-      this.$refs.form.validate()
-      this.save()
+      if (this.$refs.form.validate()) {
+        this.save()
+      }
     },
     callback (snapshot) {
       this.recipe.title = this.dropdown_beer.title

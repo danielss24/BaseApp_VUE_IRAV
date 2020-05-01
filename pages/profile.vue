@@ -96,7 +96,7 @@
             <v-btn color="green" href="">
               <v-icon>mdi-share</v-icon>
             </v-btn>
-            <v-btn color="red" v-on:click="deleteBeer(beer)">
+            <v-btn color="red" @click="deleteBeer(beer)">
               <v-icon>mdi-delete</v-icon>
             </v-btn>
           </v-card-actions>
